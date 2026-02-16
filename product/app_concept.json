@@ -1,0 +1,215 @@
+{
+  "app": {
+    "name": "FamilyFun",
+    "tagline": "Играй, расти и побеждай вместе с семьёй!",
+    "description": "Геймифицированное мобильное приложение для семей. Участники создают семейный профиль, выполняют ежедневные задания, играют в мини-игры, копят бонусные монеты и обменивают их на реальные награды. Программа лояльности мотивирует всю семью проводить время вместе.",
+    "category": "Lifestyle / Family / Gamification",
+    "platforms": ["iOS", "Android"],
+    "launch_date": "2025-06-15",
+    "version": "2.4.1",
+    "target_audience": {
+      "primary": "Семьи с детьми 6-16 лет",
+      "secondary": "Молодые пары 25-40 лет",
+      "geo": ["Россия", "СНГ"],
+      "languages": ["ru", "en"]
+    }
+  },
+
+  "monetization": {
+    "model": "Freemium + Subscription + In-App Purchases",
+    "subscriptions": [
+      {
+        "plan": "Basic",
+        "price_monthly": 0,
+        "price_yearly": 0,
+        "features": ["1 семейный профиль", "2 участника", "3 мини-игры", "Ежедневные задания (3 шт)", "Базовые награды"]
+      },
+      {
+        "plan": "Premium",
+        "price_monthly": 299,
+        "price_yearly": 2490,
+        "features": ["1 семейный профиль", "5 участников", "Все мини-игры (8 шт)", "Безлимитные задания", "Эксклюзивные награды", "Без рекламы", "Кастомные аватары"]
+      },
+      {
+        "plan": "Family Max",
+        "price_monthly": 499,
+        "price_yearly": 3990,
+        "features": ["3 семейных профиля", "10 участников", "Все мини-игры + ранний доступ", "Безлимитные задания", "VIP награды", "Без рекламы", "Кастомные аватары и темы", "Приоритетная поддержка", "Семейный лидерборд"]
+      }
+    ],
+    "in_app_purchases": [
+      {"item": "100 монет", "price": 79},
+      {"item": "500 монет", "price": 299},
+      {"item": "1500 монет", "price": 699},
+      {"item": "5000 монет", "price": 1790},
+      {"item": "Сундук удачи (рандомная награда)", "price": 149},
+      {"item": "Набор стикеров", "price": 99},
+      {"item": "Тема оформления", "price": 199}
+    ]
+  },
+
+  "screens": {
+    "onboarding": {
+      "steps": [
+        {"step": 1, "screen": "welcome", "title": "Добро пожаловать в FamilyFun!", "description": "Знакомство с приложением, видео 15 сек"},
+        {"step": 2, "screen": "signup", "title": "Создай аккаунт", "description": "Регистрация: email/телефон/соцсети"},
+        {"step": 3, "screen": "profile_setup", "title": "Настрой профиль", "description": "Имя, аватар, возраст"},
+        {"step": 4, "screen": "family_create", "title": "Создай семью", "description": "Название семьи, пригласи участников"},
+        {"step": 5, "screen": "first_quest", "title": "Первое задание", "description": "Обучающий квест, получение первых монет"},
+        {"step": 6, "screen": "tutorial_game", "title": "Первая игра", "description": "Обучение механике мини-игры"},
+        {"step": 7, "screen": "push_permission", "title": "Уведомления", "description": "Запрос разрешения на push"}
+      ]
+    },
+    "main": [
+      {"screen": "home", "description": "Главный экран: прогресс семьи, активные задания, быстрый доступ к играм"},
+      {"screen": "family_profile", "description": "Профиль семьи: участники, уровень, статистика, достижения"},
+      {"screen": "quests", "description": "Список ежедневных и еженедельных заданий"},
+      {"screen": "mini_games", "description": "Каталог мини-игр с рейтингами"},
+      {"screen": "bonus_store", "description": "Магазин наград: обмен монет на призы"},
+      {"screen": "leaderboard", "description": "Рейтинг семей по очкам"},
+      {"screen": "achievements", "description": "Достижения и бейджи"},
+      {"screen": "notifications", "description": "Центр уведомлений"},
+      {"screen": "settings", "description": "Настройки: профиль, подписка, уведомления, язык"}
+    ]
+  },
+
+  "features": {
+    "family_profile": {
+      "description": "Семейный профиль с общим прогрессом",
+      "details": ["Создание семьи (название, фото)", "Приглашение участников по ссылке/QR", "Общий уровень семьи (1-100)", "Дерево достижений", "История активности"],
+      "level_system": {
+        "total_levels": 100,
+        "xp_per_level_base": 500,
+        "xp_multiplier": 1.15,
+        "level_rewards": ["Каждые 5 уровней — сундук", "Каждые 10 — уникальный аватар", "Каждые 25 — эксклюзивная тема"]
+      }
+    },
+    "daily_quests": {
+      "description": "Ежедневные и еженедельные задания",
+      "quest_types": [
+        {"type": "daily", "count": 5, "reset": "00:00 MSK", "reward_coins": "10-50"},
+        {"type": "weekly", "count": 3, "reset": "Понедельник 00:00", "reward_coins": "100-300"},
+        {"type": "special", "count": 1, "duration": "Событийные", "reward_coins": "200-1000"}
+      ],
+      "examples": [
+        "Сыграй 3 партии в любую мини-игру",
+        "Набери 500 очков в «Семейной викторине»",
+        "Пригласи друга в семью",
+        "Собери 5 ежедневных наград подряд",
+        "Завершите задание всей семьёй"
+      ]
+    },
+    "mini_games": {
+      "description": "Коллекция мини-игр для совместной игры",
+      "games": [
+        {
+          "name": "Семейная викторина",
+          "type": "quiz",
+          "players": "2-6",
+          "duration_min": 5,
+          "description": "Викторина с вопросами для всей семьи по категориям"
+        },
+        {
+          "name": "Башня слов",
+          "type": "word_puzzle",
+          "players": "1-4",
+          "duration_min": 3,
+          "description": "Собирай слова из букв, строй башню выше"
+        },
+        {
+          "name": "Гонка памяти",
+          "type": "memory",
+          "players": "1-2",
+          "duration_min": 2,
+          "description": "Классическая игра на память с семейными фото"
+        },
+        {
+          "name": "Семейный пазл",
+          "type": "puzzle",
+          "players": "1-6",
+          "duration_min": 10,
+          "description": "Совместный сбор пазла в реальном времени"
+        },
+        {
+          "name": "Колесо фортуны",
+          "type": "luck",
+          "players": "1",
+          "duration_min": 1,
+          "description": "Ежедневное вращение колеса с бонусами"
+        },
+        {
+          "name": "Крестики-нолики Плюс",
+          "type": "strategy",
+          "players": "2",
+          "duration_min": 3,
+          "description": "Улучшенная версия с бонусными клетками"
+        },
+        {
+          "name": "Фото-квест",
+          "type": "photo_challenge",
+          "players": "1-6",
+          "duration_min": 15,
+          "description": "Семейный фотоквест: найди и сфотографируй задание"
+        },
+        {
+          "name": "Матч-баттл",
+          "type": "match3",
+          "players": "1-2",
+          "duration_min": 3,
+          "description": "Три в ряд с соревновательным режимом"
+        }
+      ]
+    },
+    "bonus_store": {
+      "description": "Магазин наград за бонусные монеты",
+      "categories": [
+        {
+          "category": "Цифровые награды",
+          "items": ["Стикеры для чата", "Рамки для аватара", "Темы оформления", "Анимированные эмодзи"]
+        },
+        {
+          "category": "Реальные призы",
+          "items": ["Скидки партнёров (кафе, кинотеатры)", "Подарочные сертификаты", "Настольные игры", "Мерч FamilyFun"]
+        },
+        {
+          "category": "Игровые бонусы",
+          "items": ["Удвоение XP на 24ч", "Дополнительные подсказки", "Пропуск задания", "Бустер монет"]
+        }
+      ],
+      "currency": {
+        "name": "FunCoins",
+        "earn_methods": ["Ежедневные задания", "Мини-игры", "Достижения", "Реферальная программа", "Ежедневный вход", "Покупка за реальные деньги"],
+        "exchange_rate": "1 рубль = ~1.3 FunCoins (при покупке)"
+      }
+    },
+    "achievements": {
+      "description": "Система ачивок и бейджей",
+      "categories": [
+        {"category": "Новичок", "count": 10, "examples": ["Первая игра", "Первый бонус", "Создание семьи"]},
+        {"category": "Мастер игр", "count": 15, "examples": ["100 игр", "Победа 50 раз", "Все игры разблокированы"]},
+        {"category": "Семейные узы", "count": 12, "examples": ["5 участников", "100 совместных заданий", "30 дней подряд"]},
+        {"category": "Коллекционер", "count": 8, "examples": ["Все стикеры", "10 тем", "Все аватары"]},
+        {"category": "Легенда", "count": 5, "examples": ["Уровень 100", "Топ-10 лидерборда", "365 дней в приложении"]}
+      ],
+      "total_achievements": 50
+    },
+    "referral_program": {
+      "description": "Пригласи друга — получи бонусы",
+      "inviter_reward": "200 FunCoins + 1 сундук удачи",
+      "invitee_reward": "100 FunCoins + Premium на 7 дней",
+      "max_referrals": 50,
+      "referral_link": true,
+      "qr_code": true
+    },
+    "push_notifications": {
+      "types": [
+        {"type": "daily_reminder", "text": "Твои ежедневные задания ждут!", "time": "10:00"},
+        {"type": "quest_expiring", "text": "До конца задания осталось 2 часа!", "trigger": "2h before expiry"},
+        {"type": "family_activity", "text": "{member} выполнил задание!", "trigger": "on_event"},
+        {"type": "streak_risk", "text": "Зайди сегодня, чтобы не потерять серию!", "time": "18:00"},
+        {"type": "new_game", "text": "Новая игра доступна: {game_name}", "trigger": "on_release"},
+        {"type": "leaderboard_update", "text": "Ваша семья поднялась на {position} место!", "trigger": "on_change"}
+      ]
+    }
+  }
+}

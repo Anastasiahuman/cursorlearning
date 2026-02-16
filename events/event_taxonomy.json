@@ -1,0 +1,345 @@
+{
+  "event_taxonomy": {
+    "version": "2.4.1",
+    "last_updated": "2026-01-15",
+    "total_events": 42,
+
+    "categories": {
+      "onboarding": {
+        "description": "События прохождения онбординга",
+        "events": [
+          {
+            "name": "app_installed",
+            "description": "Приложение установлено",
+            "trigger": "Первый запуск после установки",
+            "properties": ["install_source", "campaign_id", "platform", "device_model", "os_version"]
+          },
+          {
+            "name": "app_opened_first",
+            "description": "Первое открытие приложения",
+            "trigger": "Первый запуск",
+            "properties": ["referrer", "deeplink"]
+          },
+          {
+            "name": "onboarding_step_viewed",
+            "description": "Просмотрен шаг онбординга",
+            "trigger": "Переход на шаг",
+            "properties": ["step_number", "step_name"]
+          },
+          {
+            "name": "onboarding_step_completed",
+            "description": "Завершён шаг онбординга",
+            "trigger": "Нажатие «Далее» / завершение действия",
+            "properties": ["step_number", "step_name", "time_spent_sec"]
+          },
+          {
+            "name": "onboarding_skipped",
+            "description": "Онбординг пропущен",
+            "trigger": "Нажатие «Пропустить»",
+            "properties": ["skipped_at_step", "steps_completed"]
+          },
+          {
+            "name": "onboarding_completed",
+            "description": "Онбординг полностью завершён",
+            "trigger": "Прохождение всех шагов",
+            "properties": ["total_time_sec", "steps_skipped"]
+          }
+        ]
+      },
+
+      "auth": {
+        "description": "Регистрация и авторизация",
+        "events": [
+          {
+            "name": "signup_started",
+            "description": "Начата регистрация",
+            "trigger": "Открытие формы регистрации",
+            "properties": ["method"]
+          },
+          {
+            "name": "signup_completed",
+            "description": "Регистрация завершена",
+            "trigger": "Успешное создание аккаунта",
+            "properties": ["method", "referral_code", "time_to_signup_sec"]
+          },
+          {
+            "name": "signup_failed",
+            "description": "Ошибка регистрации",
+            "trigger": "Ошибка при регистрации",
+            "properties": ["method", "error_type", "error_message"]
+          },
+          {
+            "name": "login",
+            "description": "Вход в аккаунт",
+            "trigger": "Успешная авторизация",
+            "properties": ["method", "is_returning_user"]
+          },
+          {
+            "name": "logout",
+            "description": "Выход из аккаунта",
+            "trigger": "Нажатие «Выйти»",
+            "properties": ["session_duration_sec"]
+          }
+        ]
+      },
+
+      "profile": {
+        "description": "Профиль пользователя и семьи",
+        "events": [
+          {
+            "name": "profile_setup_completed",
+            "description": "Профиль настроен",
+            "trigger": "Сохранение профиля с аватаром и именем",
+            "properties": ["has_avatar", "has_custom_name", "age_group"]
+          },
+          {
+            "name": "family_created",
+            "description": "Семья создана",
+            "trigger": "Нажатие «Создать семью»",
+            "properties": ["family_name_set", "family_photo_set"]
+          },
+          {
+            "name": "family_member_invited",
+            "description": "Приглашение участника в семью",
+            "trigger": "Отправка приглашения",
+            "properties": ["invite_method", "family_size_before"]
+          },
+          {
+            "name": "family_member_joined",
+            "description": "Участник присоединился к семье",
+            "trigger": "Принятие приглашения",
+            "properties": ["invite_method", "family_size_after", "time_to_join_hours"]
+          },
+          {
+            "name": "avatar_changed",
+            "description": "Смена аватара",
+            "trigger": "Сохранение нового аватара",
+            "properties": ["avatar_type", "is_premium_avatar"]
+          }
+        ]
+      },
+
+      "games": {
+        "description": "Мини-игры",
+        "events": [
+          {
+            "name": "games_screen_viewed",
+            "description": "Открыт каталог игр",
+            "trigger": "Переход на экран игр",
+            "properties": ["source_screen"]
+          },
+          {
+            "name": "game_started",
+            "description": "Игра начата",
+            "trigger": "Нажатие «Играть»",
+            "properties": ["game_name", "game_type", "players_count", "is_multiplayer"]
+          },
+          {
+            "name": "game_completed",
+            "description": "Игра завершена",
+            "trigger": "Окончание раунда/партии",
+            "properties": ["game_name", "score", "duration_sec", "result", "coins_earned", "xp_earned"]
+          },
+          {
+            "name": "game_abandoned",
+            "description": "Игра брошена без завершения",
+            "trigger": "Выход до окончания",
+            "properties": ["game_name", "time_played_sec", "progress_pct"]
+          },
+          {
+            "name": "game_result_shared",
+            "description": "Результат игры поделён",
+            "trigger": "Нажатие «Поделиться»",
+            "properties": ["game_name", "share_method", "score"]
+          }
+        ]
+      },
+
+      "quests": {
+        "description": "Задания",
+        "events": [
+          {
+            "name": "quest_list_viewed",
+            "description": "Просмотр списка заданий",
+            "trigger": "Открытие экрана заданий",
+            "properties": ["available_quests_count", "completed_today"]
+          },
+          {
+            "name": "quest_started",
+            "description": "Задание начато",
+            "trigger": "Нажатие «Начать»",
+            "properties": ["quest_id", "quest_type", "quest_name", "reward_coins"]
+          },
+          {
+            "name": "quest_completed",
+            "description": "Задание выполнено",
+            "trigger": "Выполнение условий задания",
+            "properties": ["quest_id", "quest_type", "quest_name", "coins_earned", "xp_earned", "time_to_complete_sec"]
+          },
+          {
+            "name": "daily_streak_updated",
+            "description": "Обновлена серия ежедневных входов",
+            "trigger": "Выполнение ежедневного действия",
+            "properties": ["streak_days", "bonus_coins"]
+          }
+        ]
+      },
+
+      "bonuses": {
+        "description": "Бонусный магазин и награды",
+        "events": [
+          {
+            "name": "store_viewed",
+            "description": "Открыт магазин бонусов",
+            "trigger": "Переход на экран магазина",
+            "properties": ["user_coins_balance", "source_screen"]
+          },
+          {
+            "name": "store_item_viewed",
+            "description": "Просмотр товара в магазине",
+            "trigger": "Нажатие на товар",
+            "properties": ["item_id", "item_name", "item_category", "price_coins"]
+          },
+          {
+            "name": "bonus_redeemed",
+            "description": "Бонус обменян на награду",
+            "trigger": "Подтверждение обмена",
+            "properties": ["item_id", "item_name", "item_category", "price_coins", "coins_balance_after"]
+          },
+          {
+            "name": "coins_earned",
+            "description": "Монеты получены",
+            "trigger": "Начисление монет из любого источника",
+            "properties": ["amount", "source", "balance_after"]
+          },
+          {
+            "name": "wheel_spun",
+            "description": "Вращение колеса фортуны",
+            "trigger": "Ежедневное вращение",
+            "properties": ["reward_type", "reward_amount", "is_jackpot"]
+          }
+        ]
+      },
+
+      "purchases": {
+        "description": "Покупки и подписки",
+        "events": [
+          {
+            "name": "paywall_viewed",
+            "description": "Просмотр экрана подписок",
+            "trigger": "Открытие paywall",
+            "properties": ["source_screen", "trigger_feature"]
+          },
+          {
+            "name": "subscription_started",
+            "description": "Подписка оформлена",
+            "trigger": "Успешная оплата подписки",
+            "properties": ["plan", "price", "period", "is_trial", "payment_method"]
+          },
+          {
+            "name": "subscription_renewed",
+            "description": "Подписка продлена",
+            "trigger": "Автопродление",
+            "properties": ["plan", "price", "period", "months_subscribed"]
+          },
+          {
+            "name": "subscription_cancelled",
+            "description": "Подписка отменена",
+            "trigger": "Отмена подписки",
+            "properties": ["plan", "reason", "months_subscribed", "cancel_source"]
+          },
+          {
+            "name": "iap_purchased",
+            "description": "Покупка in-app",
+            "trigger": "Успешная покупка",
+            "properties": ["item_id", "item_name", "price", "currency", "payment_method"]
+          },
+          {
+            "name": "purchase_failed",
+            "description": "Неудачная покупка",
+            "trigger": "Ошибка оплаты",
+            "properties": ["item_type", "price", "error_type"]
+          }
+        ]
+      },
+
+      "social": {
+        "description": "Социальные действия",
+        "events": [
+          {
+            "name": "referral_link_shared",
+            "description": "Реферальная ссылка отправлена",
+            "trigger": "Нажатие «Поделиться» в реферальной программе",
+            "properties": ["share_method", "referral_code"]
+          },
+          {
+            "name": "referral_registered",
+            "description": "Приглашённый зарегистрировался",
+            "trigger": "Регистрация по реферальной ссылке",
+            "properties": ["referrer_id", "referral_code"]
+          },
+          {
+            "name": "leaderboard_viewed",
+            "description": "Просмотр лидерборда",
+            "trigger": "Открытие экрана рейтинга",
+            "properties": ["user_position", "family_position"]
+          },
+          {
+            "name": "achievement_unlocked",
+            "description": "Достижение разблокировано",
+            "trigger": "Выполнение условия ачивки",
+            "properties": ["achievement_id", "achievement_name", "achievement_category", "coins_reward"]
+          }
+        ]
+      },
+
+      "system": {
+        "description": "Системные события",
+        "events": [
+          {
+            "name": "app_opened",
+            "description": "Приложение открыто",
+            "trigger": "Каждый запуск",
+            "properties": ["session_id", "is_background_open", "app_version", "time_since_last_open_sec"]
+          },
+          {
+            "name": "app_backgrounded",
+            "description": "Приложение свёрнуто",
+            "trigger": "Сворачивание",
+            "properties": ["session_id", "session_duration_sec", "screens_viewed"]
+          },
+          {
+            "name": "push_received",
+            "description": "Push-уведомление получено",
+            "trigger": "Получение push",
+            "properties": ["notification_type", "campaign_id"]
+          },
+          {
+            "name": "push_opened",
+            "description": "Push-уведомление открыто",
+            "trigger": "Нажатие на push",
+            "properties": ["notification_type", "campaign_id", "time_to_open_sec"]
+          },
+          {
+            "name": "push_permission_granted",
+            "description": "Разрешение на push дано",
+            "trigger": "Согласие на push-уведомления",
+            "properties": ["onboarding_step"]
+          },
+          {
+            "name": "push_permission_denied",
+            "description": "Разрешение на push отклонено",
+            "trigger": "Отказ от push-уведомлений",
+            "properties": ["onboarding_step"]
+          },
+          {
+            "name": "error_occurred",
+            "description": "Ошибка в приложении",
+            "trigger": "Любая ошибка",
+            "properties": ["error_type", "error_message", "screen", "is_fatal"]
+          }
+        ]
+      }
+    }
+  }
+}

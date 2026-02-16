@@ -1,0 +1,189 @@
+{
+  "segments": {
+    "january_2026": {
+      "total_mau": 131800,
+      "segments": [
+        {
+          "segment": "New Users",
+          "description": "Пользователи, зарегистрировавшиеся в текущем месяце",
+          "size": 22400,
+          "pct_of_mau": 17.0,
+          "behavior": {
+            "avg_sessions_per_month": 3.2,
+            "avg_session_duration_sec": 280,
+            "avg_games_played": 4.5,
+            "avg_quests_completed": 2.8,
+            "pct_completed_onboarding": 62.3,
+            "pct_created_family": 41.5,
+            "pct_invited_member": 18.2
+          },
+          "revenue": {
+            "avg_revenue": 0.85,
+            "pct_paying": 4.2,
+            "avg_revenue_paying": 20.24
+          },
+          "retention": {
+            "day_1": 44.8,
+            "day_7": 21.5,
+            "day_30": 11.3
+          }
+        },
+        {
+          "segment": "Casual Users",
+          "description": "Активны 1-3 дня в неделю, базовое использование",
+          "size": 52700,
+          "pct_of_mau": 40.0,
+          "behavior": {
+            "avg_sessions_per_month": 8.4,
+            "avg_session_duration_sec": 350,
+            "avg_games_played": 12.3,
+            "avg_quests_completed": 8.5,
+            "pct_uses_bonus_store": 22.0,
+            "pct_plays_daily": false,
+            "days_active_per_week": 2.1
+          },
+          "revenue": {
+            "avg_revenue": 2.10,
+            "pct_paying": 8.5,
+            "avg_revenue_paying": 24.70
+          },
+          "retention": {
+            "day_1": 55.2,
+            "day_7": 38.4,
+            "day_30": 22.1
+          }
+        },
+        {
+          "segment": "Power Users",
+          "description": "Активны 5+ дней в неделю, используют большинство фич",
+          "size": 19770,
+          "pct_of_mau": 15.0,
+          "behavior": {
+            "avg_sessions_per_month": 22.5,
+            "avg_session_duration_sec": 680,
+            "avg_games_played": 45.8,
+            "avg_quests_completed": 28.3,
+            "pct_uses_bonus_store": 78.5,
+            "pct_uses_leaderboard": 65.0,
+            "days_active_per_week": 5.8,
+            "avg_achievements_unlocked": 18.4
+          },
+          "revenue": {
+            "avg_revenue": 12.80,
+            "pct_paying": 38.5,
+            "avg_revenue_paying": 33.25
+          },
+          "retention": {
+            "day_1": 82.3,
+            "day_7": 68.5,
+            "day_30": 52.4
+          }
+        },
+        {
+          "segment": "Paying Users",
+          "description": "Совершили хотя бы 1 платёж (подписка или покупка)",
+          "size": 20996,
+          "pct_of_mau": 15.93,
+          "behavior": {
+            "avg_sessions_per_month": 18.7,
+            "avg_session_duration_sec": 590,
+            "avg_games_played": 38.2,
+            "avg_quests_completed": 22.1,
+            "pct_premium_subscribers": 62.0,
+            "pct_family_max_subscribers": 18.5,
+            "pct_iap_only": 19.5
+          },
+          "revenue": {
+            "avg_revenue": 36.10,
+            "total_revenue": 758000,
+            "subscription_revenue_pct": 68.5,
+            "iap_revenue_pct": 31.5,
+            "avg_transactions_per_user": 1.49
+          },
+          "retention": {
+            "day_1": 78.5,
+            "day_7": 62.3,
+            "day_30": 48.8
+          },
+          "subscription_breakdown": {
+            "basic_free": 110804,
+            "premium": 13018,
+            "family_max": 3884,
+            "churned_subscribers": 4094
+          }
+        },
+        {
+          "segment": "At-Risk / Declining",
+          "description": "Снижение активности >50% за последние 2 недели",
+          "size": 18540,
+          "pct_of_mau": 14.07,
+          "behavior": {
+            "avg_sessions_per_month": 2.8,
+            "avg_session_duration_sec": 180,
+            "avg_games_played": 1.2,
+            "avg_quests_completed": 0.8,
+            "days_since_last_session_avg": 8.5,
+            "pct_disabled_push": 45.0
+          },
+          "revenue": {
+            "avg_revenue": 0.40,
+            "pct_paying": 3.1,
+            "avg_revenue_paying": 12.90
+          },
+          "win_back_campaigns": {
+            "push_sent": 14200,
+            "push_opened_pct": 8.5,
+            "email_sent": 11800,
+            "email_opened_pct": 12.3,
+            "reactivated_pct": 15.2
+          }
+        },
+        {
+          "segment": "Churned (prev month)",
+          "description": "Были активны в декабре, не были в январе",
+          "size": 14700,
+          "pct_of_prev_mau": 11.81,
+          "last_activity": {
+            "avg_lifetime_days": 34.5,
+            "avg_sessions_total": 12.8,
+            "top_churn_reasons_survey": [
+              {"reason": "Надоело / нет нового контента", "pct": 32.5},
+              {"reason": "Семья потеряла интерес", "pct": 24.8},
+              {"reason": "Слишком много уведомлений", "pct": 15.2},
+              {"reason": "Нашли альтернативу", "pct": 12.1},
+              {"reason": "Технические проблемы", "pct": 8.4},
+              {"reason": "Другое", "pct": 7.0}
+            ]
+          },
+          "revenue_lost": {
+            "was_paying_pct": 9.8,
+            "revenue_lost_monthly": 52000
+          }
+        },
+        {
+          "segment": "Reactivated",
+          "description": "Вернулись после 30+ дней неактивности",
+          "size": 4100,
+          "pct_of_mau": 3.11,
+          "behavior": {
+            "avg_days_inactive_before_return": 45.2,
+            "avg_sessions_first_week_back": 3.8,
+            "pct_retained_after_7d": 35.5,
+            "reactivation_trigger": [
+              {"trigger": "Push-кампания", "pct": 38.0},
+              {"trigger": "Email-кампания", "pct": 22.5},
+              {"trigger": "Органический возврат", "pct": 18.0},
+              {"trigger": "Обновление приложения", "pct": 12.5},
+              {"trigger": "Реферал от друга", "pct": 9.0}
+            ]
+          },
+          "revenue": {
+            "avg_revenue": 1.90,
+            "pct_paying": 6.8,
+            "avg_revenue_paying": 27.94
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "metrics": {
+    "december_2025": {
+      "period": "2025-12-01 / 2025-12-31",
+      "users": {
+        "mau": 124500,
+        "dau_avg": 31200,
+        "dau_min": 22800,
+        "dau_max": 45600,
+        "dau_median": 30100,
+        "new_registrations": 18700,
+        "reactivated_users": 3200,
+        "churned_users": 15400
+      },
+      "retention": {
+        "day_1": 42.5,
+        "day_3": 28.3,
+        "day_7": 19.8,
+        "day_14": 14.2,
+        "day_30": 10.1,
+        "day_60": 6.8,
+        "day_90": 4.9,
+        "rolling_retention_30d": 35.2,
+        "cohort_december": {
+          "week_1": 38.4,
+          "week_2": 22.1,
+          "week_3": 16.7,
+          "week_4": 13.5
+        }
+      },
+      "revenue": {
+        "total_revenue": 685000,
+        "arpu": 5.50,
+        "arppu": 34.25,
+        "paying_users": 20000,
+        "conversion_to_paying": 16.06,
+        "ltv_avg": 82.50,
+        "mrr": 685000,
+        "transactions_count": 28500,
+        "avg_transaction_value": 24.04,
+        "refunds": 12300,
+        "refund_rate": 1.80
+      },
+      "engagement": {
+        "sessions_per_user_avg": 5.8,
+        "avg_session_duration_sec": 420,
+        "pages_per_session": 6.2,
+        "bounce_rate": 32.5,
+        "stickiness_dau_mau": 25.06,
+        "events_per_session": 18.4,
+        "feature_adoption_rate": 28.3
+      },
+      "acquisition": {
+        "organic": 8400,
+        "paid": 5600,
+        "referral": 2100,
+        "social": 1800,
+        "email": 800,
+        "cac_avg": 12.40,
+        "cac_organic": 0,
+        "cac_paid": 28.50,
+        "install_to_registration_rate": 68.5
+      },
+      "churn": {
+        "churn_rate_monthly": 12.37,
+        "churn_rate_daily_avg": 0.42,
+        "net_churn": -12200,
+        "revenue_churn_rate": 8.50,
+        "net_revenue_churn_rate": -5.20
+      }
+    },
+    "january_2026": {
+      "period": "2026-01-01 / 2026-01-31",
+      "users": {
+        "mau": 131800,
+        "dau_avg": 34500,
+        "dau_min": 25100,
+        "dau_max": 48200,
+        "dau_median": 33800,
+        "new_registrations": 22400,
+        "reactivated_users": 4100,
+        "churned_users": 14700
+      },
+      "retention": {
+        "day_1": 44.8,
+        "day_3": 30.1,
+        "day_7": 21.5,
+        "day_14": 15.8,
+        "day_30": 11.3,
+        "day_60": 7.5,
+        "day_90": 5.4,
+        "rolling_retention_30d": 37.6,
+        "cohort_january": {
+          "week_1": 41.2,
+          "week_2": 24.5,
+          "week_3": 18.3,
+          "week_4": 14.9
+        }
+      },
+      "revenue": {
+        "total_revenue": 758000,
+        "arpu": 5.75,
+        "arppu": 36.10,
+        "paying_users": 20996,
+        "conversion_to_paying": 15.93,
+        "ltv_avg": 86.20,
+        "mrr": 758000,
+        "transactions_count": 31200,
+        "avg_transaction_value": 24.30,
+        "refunds": 11800,
+        "refund_rate": 1.56
+      },
+      "engagement": {
+        "sessions_per_user_avg": 6.3,
+        "avg_session_duration_sec": 445,
+        "pages_per_session": 6.8,
+        "bounce_rate": 30.1,
+        "stickiness_dau_mau": 26.18,
+        "events_per_session": 19.7,
+        "feature_adoption_rate": 31.5
+      },
+      "acquisition": {
+        "organic": 10200,
+        "paid": 6800,
+        "referral": 2500,
+        "social": 2000,
+        "email": 900,
+        "cac_avg": 11.80,
+        "cac_organic": 0,
+        "cac_paid": 26.30,
+        "install_to_registration_rate": 71.2
+      },
+      "churn": {
+        "churn_rate_monthly": 11.15,
+        "churn_rate_daily_avg": 0.38,
+        "net_churn": -10600,
+        "revenue_churn_rate": 7.80,
+        "net_revenue_churn_rate": -4.10
+      }
+    },
+    "month_over_month_change": {
+      "mau_change_pct": 5.86,
+      "dau_change_pct": 10.58,
+      "registrations_change_pct": 19.79,
+      "retention_d1_change_pp": 2.3,
+      "retention_d7_change_pp": 1.7,
+      "retention_d30_change_pp": 1.2,
+      "arpu_change_pct": 4.55,
+      "arppu_change_pct": 5.40,
+      "revenue_change_pct": 10.66,
+      "paying_users_change_pct": 4.98,
+      "churn_rate_change_pp": -1.22,
+      "cac_change_pct": -4.84,
+      "stickiness_change_pp": 1.12,
+      "session_duration_change_pct": 5.95,
+      "bounce_rate_change_pp": -2.4
+    }
+  }
+}

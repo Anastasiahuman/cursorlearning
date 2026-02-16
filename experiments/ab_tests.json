@@ -1,0 +1,262 @@
+{
+  "ab_tests": [
+    {
+      "test_id": "EXP-042",
+      "name": "Новый онбординг с видео",
+      "hypothesis": "Добавление короткого видео (15 сек) на первый экран онбординга увеличит конверсию в регистрацию на 10%",
+      "status": "completed",
+      "start_date": "2026-01-06",
+      "end_date": "2026-01-20",
+      "duration_days": 14,
+      "target_audience": "Все новые пользователи",
+      "traffic_split": {"control": 50, "variant": 50},
+
+      "groups": {
+        "control": {
+          "name": "Текущий онбординг (статичная картинка)",
+          "sample_size": 7800,
+          "metrics": {
+            "onboarding_completion_rate": 24.5,
+            "signup_conversion": 68.2,
+            "time_to_signup_sec_avg": 125,
+            "d1_retention": 43.8,
+            "d7_retention": 20.5,
+            "family_created_pct": 38.0,
+            "first_game_played_pct": 55.2
+          }
+        },
+        "variant_a": {
+          "name": "Онбординг с авто-видео 15 сек",
+          "sample_size": 7650,
+          "metrics": {
+            "onboarding_completion_rate": 28.8,
+            "signup_conversion": 74.5,
+            "time_to_signup_sec_avg": 108,
+            "d1_retention": 47.2,
+            "d7_retention": 23.8,
+            "family_created_pct": 42.5,
+            "first_game_played_pct": 61.0
+          }
+        }
+      },
+
+      "results": {
+        "primary_metric": "signup_conversion",
+        "lift_pct": 9.24,
+        "confidence_level_pct": 97.5,
+        "p_value": 0.018,
+        "is_statistically_significant": true,
+        "secondary_lifts": {
+          "onboarding_completion_rate": {"lift_pct": 17.55, "p_value": 0.005, "significant": true},
+          "d1_retention": {"lift_pct": 7.76, "p_value": 0.032, "significant": true},
+          "d7_retention": {"lift_pct": 16.10, "p_value": 0.008, "significant": true}
+        },
+        "decision": "SHIP",
+        "decision_rationale": "Вариант значимо увеличивает конверсию в регистрацию (+9.2%), а также улучшает D1 и D7 retention. Видео не увеличивает время загрузки (CDN). Раскатываем на 100%.",
+        "rollout_date": "2026-01-22"
+      }
+    },
+
+    {
+      "test_id": "EXP-043",
+      "name": "Редизайн магазина бонусов",
+      "hypothesis": "Новый дизайн магазина с категориями и рекомендациями увеличит конверсию в обмен бонусов на 15% и время на экране на 20%",
+      "status": "completed",
+      "start_date": "2026-01-08",
+      "end_date": "2026-01-22",
+      "duration_days": 14,
+      "target_audience": "Пользователи с балансом > 100 FunCoins",
+      "traffic_split": {"control": 50, "variant_a": 25, "variant_b": 25},
+
+      "groups": {
+        "control": {
+          "name": "Текущий магазин (список)",
+          "sample_size": 12400,
+          "metrics": {
+            "store_visit_rate": 28.8,
+            "items_viewed_per_visit": 3.2,
+            "redemption_rate": 18.5,
+            "avg_coins_spent_per_visit": 220,
+            "time_on_screen_sec": 45,
+            "paywall_click_from_store_pct": 5.2,
+            "iap_conversion_from_store": 3.8
+          }
+        },
+        "variant_a": {
+          "name": "Новый дизайн с категориями",
+          "sample_size": 6200,
+          "metrics": {
+            "store_visit_rate": 32.5,
+            "items_viewed_per_visit": 4.8,
+            "redemption_rate": 22.0,
+            "avg_coins_spent_per_visit": 280,
+            "time_on_screen_sec": 58,
+            "paywall_click_from_store_pct": 6.8,
+            "iap_conversion_from_store": 4.5
+          }
+        },
+        "variant_b": {
+          "name": "Категории + персональные рекомендации",
+          "sample_size": 6150,
+          "metrics": {
+            "store_visit_rate": 34.2,
+            "items_viewed_per_visit": 5.5,
+            "redemption_rate": 25.8,
+            "avg_coins_spent_per_visit": 320,
+            "time_on_screen_sec": 65,
+            "paywall_click_from_store_pct": 8.1,
+            "iap_conversion_from_store": 5.2
+          }
+        }
+      },
+
+      "results": {
+        "primary_metric": "redemption_rate",
+        "variant_a_lift_pct": 18.92,
+        "variant_b_lift_pct": 39.46,
+        "variant_a_p_value": 0.012,
+        "variant_b_p_value": 0.001,
+        "is_statistically_significant": true,
+        "winner": "variant_b",
+        "secondary_lifts": {
+          "time_on_screen": {"variant_b_lift_pct": 44.44, "p_value": 0.001, "significant": true},
+          "iap_conversion": {"variant_b_lift_pct": 36.84, "p_value": 0.015, "significant": true},
+          "store_visit_rate": {"variant_b_lift_pct": 18.75, "p_value": 0.008, "significant": true}
+        },
+        "decision": "SHIP variant_b",
+        "decision_rationale": "Variant B (категории + рекомендации) показал значимый рост по всем метрикам. Redemption rate +39%, время на экране +44%, IAP конверсия +37%. Рекомендации основаны на истории покупок и уровне пользователя.",
+        "rollout_date": "2026-01-28",
+        "estimated_monthly_revenue_impact": 28500
+      }
+    },
+
+    {
+      "test_id": "EXP-044",
+      "name": "Оптимизация push-уведомлений",
+      "hypothesis": "Персонализированное время отправки push (на основе ML-модели оптимального времени) увеличит open rate на 25% и снизит opt-out rate на 30%",
+      "status": "running",
+      "start_date": "2026-01-20",
+      "end_date": "2026-02-03",
+      "duration_days": 14,
+      "target_audience": "Пользователи с включёнными push-уведомлениями",
+      "traffic_split": {"control": 50, "variant": 50},
+
+      "groups": {
+        "control": {
+          "name": "Фиксированное время (10:00 MSK)",
+          "sample_size": 40800,
+          "metrics": {
+            "push_open_rate": 12.5,
+            "push_click_to_action_rate": 8.2,
+            "opt_out_rate_14d": 3.8,
+            "sessions_from_push_per_user": 1.8,
+            "d7_retention_push_recipients": 28.5
+          }
+        },
+        "variant_a": {
+          "name": "ML-оптимизированное время отправки",
+          "sample_size": 40200,
+          "metrics_interim_day_7": {
+            "push_open_rate": 16.8,
+            "push_click_to_action_rate": 11.5,
+            "opt_out_rate_7d": 1.9,
+            "sessions_from_push_per_user": 2.4,
+            "d7_retention_push_recipients": 31.2
+          }
+        }
+      },
+
+      "interim_results_day_7": {
+        "primary_metric": "push_open_rate",
+        "lift_pct": 34.4,
+        "confidence_level_pct": 99.2,
+        "p_value": 0.003,
+        "is_trending_significant": true,
+        "notes": "Промежуточные результаты очень обнадёживающие. Ждём 14 дней для финального решения. Open rate вырос на 34%, opt-out снизился вдвое.",
+        "projected_decision": "SHIP (если тренд сохранится)"
+      }
+    },
+
+    {
+      "test_id": "EXP-045",
+      "name": "Gamification: Система стрик-бонусов",
+      "hypothesis": "Увеличенные бонусы за серию ежедневных входов (прогрессивная шкала вместо фиксированной) повысят DAU/MAU stickiness на 3 п.п.",
+      "status": "completed",
+      "start_date": "2025-12-15",
+      "end_date": "2026-01-12",
+      "duration_days": 28,
+      "target_audience": "Пользователи с аккаунтом > 7 дней",
+      "traffic_split": {"control": 50, "variant": 50},
+
+      "groups": {
+        "control": {
+          "name": "Фиксированный бонус (20 монет/день)",
+          "sample_size": 52000,
+          "metrics": {
+            "avg_streak_days": 6.2,
+            "pct_streak_7plus": 22.0,
+            "pct_streak_14plus": 10.5,
+            "pct_streak_30plus": 4.2,
+            "dau_mau_stickiness": 24.8,
+            "daily_return_rate": 42.0,
+            "coins_earned_per_user_month": 380,
+            "d30_retention": 10.5
+          }
+        },
+        "variant_a": {
+          "name": "Прогрессивная шкала (20→50→100→200 монет)",
+          "sample_size": 51500,
+          "metrics": {
+            "avg_streak_days": 9.8,
+            "pct_streak_7plus": 35.5,
+            "pct_streak_14plus": 18.8,
+            "pct_streak_30plus": 8.5,
+            "dau_mau_stickiness": 28.2,
+            "daily_return_rate": 48.5,
+            "coins_earned_per_user_month": 620,
+            "d30_retention": 13.8
+          }
+        }
+      },
+
+      "results": {
+        "primary_metric": "dau_mau_stickiness",
+        "lift_pp": 3.4,
+        "lift_pct": 13.71,
+        "confidence_level_pct": 99.8,
+        "p_value": 0.001,
+        "is_statistically_significant": true,
+        "secondary_lifts": {
+          "avg_streak_days": {"lift_pct": 58.06, "p_value": 0.001, "significant": true},
+          "daily_return_rate": {"lift_pp": 6.5, "p_value": 0.001, "significant": true},
+          "d30_retention": {"lift_pp": 3.3, "p_value": 0.002, "significant": true}
+        },
+        "concerns": {
+          "coin_inflation": "Монет раздаётся на 63% больше. Нужен мониторинг экономики FunCoins. Рекомендуется добавить новые sink-механики в магазин.",
+          "revenue_impact": "Краткосрочно нейтрально. IAP конверсия не снизилась (-0.2 pp, не значимо). Долгосрочно — рост retention должен компенсировать."
+        },
+        "decision": "SHIP с мониторингом",
+        "decision_rationale": "Stickiness вырос на 3.4 п.п. (цель — 3 п.п.). D30 retention +3.3 п.п. Стрики стали в 1.6 раз длиннее. Раскатываем с мониторингом coin economy.",
+        "rollout_date": "2026-01-15"
+      }
+    }
+  ],
+
+  "experiments_summary": {
+    "total_experiments_q4_q1": 12,
+    "shipped": 8,
+    "killed": 3,
+    "running": 1,
+    "avg_test_duration_days": 16,
+    "avg_sample_size": 18500,
+    "win_rate_pct": 66.7,
+    "top_impact_experiment": "EXP-045 (Стрик-бонусы: +3.4 pp stickiness)",
+    "methodology": {
+      "min_sample_size": 5000,
+      "min_confidence_level": 95,
+      "correction_method": "Bonferroni (для тестов с 3+ группами)",
+      "primary_metric_required": true,
+      "guardrail_metrics": ["crash_rate", "app_load_time", "revenue_per_user"]
+    }
+  }
+}

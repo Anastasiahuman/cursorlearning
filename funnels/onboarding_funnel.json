@@ -1,0 +1,68 @@
+{
+  "funnel": "Onboarding",
+  "description": "Воронка онбординга нового пользователя: от установки до завершения обучения",
+
+  "december_2025": {
+    "period": "2025-12-01 / 2025-12-31",
+    "total_installs": 27300,
+    "steps": [
+      {"step": 1, "event": "app_installed",       "users": 27300, "conversion_from_prev": 100.0, "conversion_from_start": 100.0},
+      {"step": 2, "event": "app_opened_first",     "users": 25650, "conversion_from_prev": 93.96, "conversion_from_start": 93.96},
+      {"step": 3, "event": "signup_completed",      "users": 18700, "conversion_from_prev": 72.91, "conversion_from_start": 68.50},
+      {"step": 4, "event": "profile_setup_completed","users": 14960, "conversion_from_prev": 80.00, "conversion_from_start": 54.80},
+      {"step": 5, "event": "family_created",        "users": 10472, "conversion_from_prev": 70.00, "conversion_from_start": 38.36},
+      {"step": 6, "event": "first_quest_completed", "users": 8378,  "conversion_from_prev": 80.00, "conversion_from_start": 30.69},
+      {"step": 7, "event": "tutorial_game_completed","users": 6702,  "conversion_from_prev": 79.99, "conversion_from_start": 24.55},
+      {"step": 8, "event": "onboarding_completed",  "users": 5698,  "conversion_from_prev": 85.02, "conversion_from_start": 20.87}
+    ],
+    "drop_off_analysis": {
+      "biggest_drop": "signup_completed → profile_setup (потеря 20%)",
+      "reason": "Слишком много полей, пользователи не хотят загружать аватар",
+      "avg_time_to_complete_sec": 920,
+      "median_time_to_complete_sec": 780
+    }
+  },
+
+  "january_2026": {
+    "period": "2026-01-01 / 2026-01-31",
+    "total_installs": 31460,
+    "steps": [
+      {"step": 1, "event": "app_installed",       "users": 31460, "conversion_from_prev": 100.0, "conversion_from_start": 100.0},
+      {"step": 2, "event": "app_opened_first",     "users": 29890, "conversion_from_prev": 95.01, "conversion_from_start": 95.01},
+      {"step": 3, "event": "signup_completed",      "users": 22400, "conversion_from_prev": 74.94, "conversion_from_start": 71.20},
+      {"step": 4, "event": "profile_setup_completed","users": 18368, "conversion_from_prev": 82.00, "conversion_from_start": 58.38},
+      {"step": 5, "event": "family_created",        "users": 13408, "conversion_from_prev": 73.00, "conversion_from_start": 42.62},
+      {"step": 6, "event": "first_quest_completed", "users": 11126, "conversion_from_prev": 82.98, "conversion_from_start": 35.38},
+      {"step": 7, "event": "tutorial_game_completed","users": 9236,  "conversion_from_prev": 83.01, "conversion_from_start": 29.36},
+      {"step": 8, "event": "onboarding_completed",  "users": 8082,  "conversion_from_prev": 87.51, "conversion_from_start": 25.69}
+    ],
+    "drop_off_analysis": {
+      "biggest_drop": "signup_completed → profile_setup (потеря 18%)",
+      "improvement_vs_december": "Упрощена форма профиля, конверсия signup→profile выросла с 80% до 82%",
+      "avg_time_to_complete_sec": 843,
+      "median_time_to_complete_sec": 710
+    }
+  },
+
+  "month_over_month": {
+    "installs_change_pct": 15.24,
+    "signup_conversion_change_pp": 2.70,
+    "full_onboarding_conversion_change_pp": 4.82,
+    "completed_users_change_pct": 41.83,
+    "time_to_complete_change_pct": -8.37
+  },
+
+  "segments_onboarding_completion_rate": {
+    "by_source": {
+      "organic": 28.5,
+      "paid_google": 22.1,
+      "paid_facebook": 24.3,
+      "referral": 35.8,
+      "social": 19.2
+    },
+    "by_platform": {
+      "iOS": 27.4,
+      "Android": 23.8
+    }
+  }
+}

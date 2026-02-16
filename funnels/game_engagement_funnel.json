@@ -1,0 +1,141 @@
+{
+  "funnel": "Game Engagement",
+  "description": "Воронка вовлечения в мини-игры: от просмотра каталога до повторной игры и шеринга",
+
+  "december_2025": {
+    "steps": [
+      {"step": 1, "event": "games_screen_viewed",  "users": 68500, "conversion_from_prev": 100.0, "conversion_from_start": 100.0},
+      {"step": 2, "event": "game_started",          "users": 52340, "conversion_from_prev": 76.41, "conversion_from_start": 76.41},
+      {"step": 3, "event": "game_completed",         "users": 43950, "conversion_from_prev": 83.97, "conversion_from_start": 64.16},
+      {"step": 4, "event": "game_result_shared",     "users": 8790,  "conversion_from_prev": 20.00, "conversion_from_start": 12.83},
+      {"step": 5, "event": "game_started (repeat)",  "users": 35600, "conversion_from_prev": 81.00, "conversion_from_start": 51.97}
+    ],
+    "abandoned_rate": 16.03,
+    "avg_games_per_active_player": 4.8,
+    "total_game_sessions": 251200
+  },
+
+  "january_2026": {
+    "steps": [
+      {"step": 1, "event": "games_screen_viewed",  "users": 78400, "conversion_from_prev": 100.0, "conversion_from_start": 100.0},
+      {"step": 2, "event": "game_started",          "users": 61150, "conversion_from_prev": 78.00, "conversion_from_start": 78.00},
+      {"step": 3, "event": "game_completed",         "users": 52590, "conversion_from_prev": 86.00, "conversion_from_start": 67.08},
+      {"step": 4, "event": "game_result_shared",     "users": 11570, "conversion_from_prev": 22.00, "conversion_from_start": 14.76},
+      {"step": 5, "event": "game_started (repeat)",  "users": 43630, "conversion_from_prev": 82.97, "conversion_from_start": 55.65}
+    ],
+    "abandoned_rate": 14.00,
+    "avg_games_per_active_player": 5.4,
+    "total_game_sessions": 330200
+  },
+
+  "by_game": {
+    "january_2026": [
+      {
+        "game": "Семейная викторина",
+        "started": 18200,
+        "completed": 16380,
+        "completion_rate": 90.0,
+        "avg_score": 540,
+        "avg_duration_sec": 310,
+        "shared_pct": 18.5,
+        "replay_rate": 62.0,
+        "pct_of_total_sessions": 22.0
+      },
+      {
+        "game": "Матч-баттл",
+        "started": 15800,
+        "completed": 13430,
+        "completion_rate": 85.0,
+        "avg_score": 1100,
+        "avg_duration_sec": 195,
+        "shared_pct": 12.0,
+        "replay_rate": 58.0,
+        "pct_of_total_sessions": 19.0
+      },
+      {
+        "game": "Башня слов",
+        "started": 12500,
+        "completed": 10250,
+        "completion_rate": 82.0,
+        "avg_score": 650,
+        "avg_duration_sec": 220,
+        "shared_pct": 15.2,
+        "replay_rate": 55.0,
+        "pct_of_total_sessions": 15.0
+      },
+      {
+        "game": "Гонка памяти",
+        "started": 9800,
+        "completed": 8820,
+        "completion_rate": 90.0,
+        "avg_score": 420,
+        "avg_duration_sec": 130,
+        "shared_pct": 8.5,
+        "replay_rate": 48.0,
+        "pct_of_total_sessions": 12.0
+      },
+      {
+        "game": "Колесо фортуны",
+        "started": 8500,
+        "completed": 8500,
+        "completion_rate": 100.0,
+        "avg_score": 80,
+        "avg_duration_sec": 30,
+        "shared_pct": 5.0,
+        "replay_rate": 95.0,
+        "pct_of_total_sessions": 10.0
+      },
+      {
+        "game": "Семейный пазл",
+        "started": 6200,
+        "completed": 4960,
+        "completion_rate": 80.0,
+        "avg_score": 1800,
+        "avg_duration_sec": 620,
+        "shared_pct": 28.0,
+        "replay_rate": 42.0,
+        "pct_of_total_sessions": 7.5
+      },
+      {
+        "game": "Фото-квест",
+        "started": 5100,
+        "completed": 3570,
+        "completion_rate": 70.0,
+        "avg_score": 1500,
+        "avg_duration_sec": 840,
+        "shared_pct": 45.0,
+        "replay_rate": 35.0,
+        "pct_of_total_sessions": 6.1
+      },
+      {
+        "game": "Крестики-нолики Плюс",
+        "started": 5050,
+        "completed": 4290,
+        "completion_rate": 84.95,
+        "avg_score": 300,
+        "avg_duration_sec": 180,
+        "shared_pct": 10.0,
+        "replay_rate": 50.0,
+        "pct_of_total_sessions": 6.1
+      }
+    ]
+  },
+
+  "multiplayer_vs_solo": {
+    "january_2026": {
+      "solo": {
+        "sessions_pct": 58.0,
+        "completion_rate": 88.5,
+        "avg_duration_sec": 195,
+        "replay_rate": 52.0
+      },
+      "multiplayer": {
+        "sessions_pct": 42.0,
+        "completion_rate": 82.3,
+        "avg_duration_sec": 380,
+        "replay_rate": 65.0,
+        "avg_players": 2.8
+      }
+    }
+  }
+}
