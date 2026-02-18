@@ -1,0 +1,74 @@
+{
+  "period": "Январь 2026",
+  "previous_period": "Декабрь 2025",
+  "acquisition": {
+    "installs": { "current": 32500, "previous": 28100, "change_pct": 15.7 },
+    "registrations": { "current": 24800, "previous": 21400, "change_pct": 15.9 },
+    "install_to_reg_rate": { "current": 76.3, "previous": 76.2, "change_pct": 0.1 }
+  },
+  "engagement": {
+    "mau": { "current": 142000, "previous": 134500, "change_pct": 5.6 },
+    "dau": { "current": 38000, "previous": 35200, "change_pct": 8.0 },
+    "dau_mau_ratio": { "current": 26.8, "previous": 26.2, "change_pct": 2.3 },
+    "sessions_per_user_day": { "current": 2.1, "previous": 1.9, "change_pct": 10.5 },
+    "avg_session_duration_sec": { "current": 185, "previous": 172, "change_pct": 7.6 },
+    "qr_scans_per_day": { "current": 28500, "previous": 25800, "change_pct": 10.5 }
+  },
+  "retention": {
+    "d1": { "current": 52.0, "previous": 49.5, "change_pct": 5.1 },
+    "d7": { "current": 28.0, "previous": 25.3, "change_pct": 10.7 },
+    "d30": { "current": 15.0, "previous": 13.8, "change_pct": 8.7 }
+  },
+  "loyalty_program": {
+    "points_earned_mln": { "current": 18.5, "previous": 16.2, "change_pct": 14.2 },
+    "points_redeemed_mln": { "current": 12.3, "previous": 10.1, "change_pct": 21.8 },
+    "redemption_rate_pct": { "current": 66.5, "previous": 62.3, "change_pct": 6.7 },
+    "avg_check_app_users": { "current": 1870, "previous": 1790, "change_pct": 4.5 },
+    "avg_check_non_app": { "current": 1340, "previous": 1320, "change_pct": 1.5 },
+    "loyalty_tiers": {
+      "basic": { "users": 89000, "pct": 62.7, "avg_check": 1520 },
+      "silver": { "users": 38000, "pct": 26.8, "avg_check": 2100 },
+      "gold": { "users": 15000, "pct": 10.6, "avg_check": 2850 }
+    }
+  },
+  "push_notifications": {
+    "permission_granted_pct": 64.0,
+    "sent": 890000,
+    "delivered": 785000,
+    "opened": 112000,
+    "open_rate_pct": 14.3,
+    "opt_out_rate_pct": 2.1,
+    "top_performers": [
+      { "type": "Персональная скидка", "open_rate": 22.5, "conversion": 8.3 },
+      { "type": "Баллы сгорают", "open_rate": 31.2, "conversion": 12.1 },
+      { "type": "Новые акции", "open_rate": 11.8, "conversion": 3.4 },
+      { "type": "Статус уровня", "open_rate": 18.7, "conversion": 5.2 }
+    ]
+  },
+  "referral": {
+    "invites_sent": 4200,
+    "invites_accepted": 1890,
+    "conversion_rate_pct": 45.0,
+    "referred_d30_retention": 22.0,
+    "organic_d30_retention": 13.5
+  },
+  "nps": {
+    "score": 34,
+    "promoters_pct": 48,
+    "passives_pct": 38,
+    "detractors_pct": 14,
+    "top_complaints": [
+      { "issue": "Баллы долго начисляются", "pct": 28 },
+      { "issue": "Мало акций", "pct": 22 },
+      { "issue": "Приложение тормозит", "pct": 18 },
+      { "issue": "Неудобная навигация", "pct": 15 }
+    ]
+  },
+  "monthly_trend": [
+    { "month": "Сен 2025", "mau": 45000, "dau": 12000, "avg_check": 1580, "nps": 28 },
+    { "month": "Окт 2025", "mau": 78000, "dau": 20500, "avg_check": 1650, "nps": 29 },
+    { "month": "Ноя 2025", "mau": 112000, "dau": 28800, "avg_check": 1720, "nps": 31 },
+    { "month": "Дек 2025", "mau": 134500, "dau": 35200, "avg_check": 1790, "nps": 32 },
+    { "month": "Янв 2026", "mau": 142000, "dau": 38000, "avg_check": 1870, "nps": 34 }
+  ]
+}
