@@ -1,18 +1,14 @@
-# Деплой на Vercel (сайт + заявки в одном проекте)
+# Деплой на Vercel (сайт + заявки в Google Таблицу)
 
-Один деплой: лендинг, сохранение заявок (Notion и/или Formspree), редирект на оплату.
+Один деплой: лендинг, по кнопке «Перейти к оплате» заявка сохраняется в Google Таблицу, затем редирект на оплату.
 
-## Переменные окружения (Vercel → Settings → Environment Variables)
+## Переменная окружения (Vercel → Settings → Environment Variables)
 
-| Переменная | Обязательно | Описание |
-|------------|-------------|----------|
-| **NOTION_API_KEY** | Нет | Токен интеграции Notion ([My integrations](https://www.notion.so/my-integrations)). Нужен, если храните заявки в Notion. |
-| **NOTION_DATABASE_ID** | Нет | ID таблицы (из URL страницы Notion). По умолчанию в коде: `30c59203544880e19b8af372b6c731d4`. |
-| **FORMSPREE_ENDPOINT** | Нет | URL формы Formspree (`https://formspree.io/f/xxxxx`) — заявки в кабинете и на почту. |
+| Переменная | Описание |
+|------------|----------|
+| **GOOGLE_SHEETS_APPEND_URL** | URL веб‑приложения Google Apps Script. С ним заявки пишутся в таблицу. Настройка: [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md). |
 
-Хотя бы один способ сохранения (Notion или Formspree) имеет смысл задать. Редирект на оплату работает в любом случае.
-
-Подробнее про Notion: [NOTION_SETUP.md](NOTION_SETUP.md).
+Без переменной редирект на оплату работает, заявки никуда не сохраняются.
 
 ---
 
@@ -21,12 +17,12 @@
 1. Зайди на **[vercel.com](https://vercel.com)** → **Add New** → **Project**.
 2. Импортируй репозиторий **Anastasiahuman/cursorlearning** (GitHub).
 3. **Root Directory** оставь пустым (корень репозитория).
-4. В **Environment Variables** добавь нужные переменные (см. таблицу выше).
+4. В **Environment Variables** добавь **GOOGLE_SHEETS_APPEND_URL** (URL из [GOOGLE_SHEETS_SETUP.md](GOOGLE_SHEETS_SETUP.md)).
 5. Нажми **Deploy**.
 
 После деплоя:
 - Сайт по адресу вида **https://cursorlearning-xxx.vercel.app**.
-- Форма «Записаться» сохраняет заявку (Notion/Formspree) и перенаправляет на оплату.
+- По кнопке «Перейти к оплате» заявка сохраняется в Google Таблицу и открывается страница оплаты.
 
 ---
 

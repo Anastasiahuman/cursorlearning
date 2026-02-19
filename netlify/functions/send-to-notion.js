@@ -1,16 +1,12 @@
 /**
- * Netlify Function: заявка с лендинга → Notion (таблица), возвращает ссылку на оплату.
- * Env: NOTION_API_KEY (Integration token), NOTION_DATABASE_ID (ID таблицы из URL).
- * Таблица: Name (title), Email (email), Phone (phone_number), Сумма (number),
- * Status (select: "Не оплачено" / "Оплачено"), Date (date).
+ * Netlify Function: по кнопке «Перейти к оплате» — заявка в Google Таблицу, возврат ссылки на оплату.
+ * Env: GOOGLE_SHEETS_APPEND_URL (URL веб‑приложения Apps Script). См. GOOGLE_SHEETS_SETUP.md.
  */
 
 const PAYMENT_LINKS = {
   stripe: { 9990: 'https://buy.stripe.com/8x25kD8TY8hN4Vi27E3F604', 24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603' },
   yookassa: { 9990: 'https://yookassa.ru/my/i/aY41DlTAd6Eb/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
 };
-
-const NOTION_VERSION = '2022-06-28';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -27,16 +23,6 @@ exports.handler = async (event) => {
       statusCode: 405,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: 'Method not allowed' })
-    };
-  }
-
-  const apiKey = process.env.NOTION_API_KEY;
-  const databaseId = process.env.NOTION_DATABASE_ID || '30c59203544880e19b8af372b6c731d4';
-  if (!apiKey) {
-    return {
-      statusCode: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'NOTION_API_KEY not set' })
     };
   }
 
@@ -60,53 +46,22 @@ exports.handler = async (event) => {
 
   const redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
   const today = new Date().toISOString().split('T')[0];
+  const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today };
 
-  const payload = {
-    parent: { database_id: databaseId.replace(/-/g, '') },
-    properties: {
-      'Name': {
-        title: [{ type: 'text', text: { content: (name || '—').slice(0, 2000) } }]
-      },
-      'Email': {
-        email: email || null
-      },
-      'Phone': {
-        phone_number: phone || null
-      },
-      'Сумма': {
-        number: amount
-      },
-      'Status': {
-        select: { name: statusLabel }
-      },
-      'Date': {
-        date: { start: today }
+  const sheetsUrl = process.env.GOOGLE_SHEETS_APPEND_URL;
+  if (sheetsUrl) {
+    try {
+      const sheetsRes = await fetch(sheetsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadRow)
+      });
+      if (!sheetsRes.ok) {
+        console.error('Google Sheets append failed:', sheetsRes.status, await sheetsRes.text().catch(() => ''));
       }
+    } catch (e) {
+      console.error('Google Sheets request error:', e);
     }
-  };
-
-  try {
-    const res = await fetch('https://api.notion.com/v1/pages', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        'Notion-Version': NOTION_VERSION
-      },
-      body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-    if (!res.ok) {
-      console.error('Notion API error:', data);
-      return {
-        statusCode: res.status,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: data.message || 'Notion error', redirectUrl })
-      };
-    }
-  } catch (e) {
-    console.error('Notion request error:', e);
   }
 
   return {
