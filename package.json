@@ -4,6 +4,6 @@
   "description": "Cursor Training + лендинг интенсива",
   "type": "module",
   "scripts": {
-    "build": "mkdir -p public && cp -r cursor-intensive-landing/* public/ && cp -r api public/"
+    "build": "mkdir -p public && cp -r cursor-intensive-landing/* public/"
   }
 }
