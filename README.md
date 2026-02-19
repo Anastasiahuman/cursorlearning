@@ -42,10 +42,10 @@
 
 ## Лендинг интенсива «Cursor для менеджеров»
 
-Готовая страница лендинга деплоится **через Git**: подключи репозиторий к Netlify — дальше каждый `git push` обновляет сайт, заявки пишутся в Notion.
+Готовая страница лендинга публикуется **через Git** на **GitHub Pages** (без Netlify). Каждый `git push` в `main` обновляет сайт.
 
-- **Деплой через Git (Netlify + Notion):** [DEPLOY.md](DEPLOY.md) — быстрый старт.
-- **Подробно Netlify:** [NETLIFY_DEPLOY.md](NETLIFY_DEPLOY.md).
+- **Публикация на GitHub:** [DEPLOY.md](DEPLOY.md) и [GITHUB_PAGES.md](GITHUB_PAGES.md) — включить Pages, указать папку `cursor-intensive-landing`.
+- **Заявки в Notion (по желанию):** развернуть [api/send-to-notion.js](api/send-to-notion.js) на Vercel, подставить URL в лендинг — см. [GITHUB_PAGES.md](GITHUB_PAGES.md#заявки-в-notion-по-желанию).
 - **Таблица Notion:** [NOTION_SETUP.md](NOTION_SETUP.md) — колонки Name, Email, Phone, Сумма, Status, Date.
 
-Папка [cursor-intensive-landing](cursor-intensive-landing/) — HTML, стили, фото, логотипы. Функция `netlify/functions/send-to-notion.js` отправляет заявки в таблицу.
+Папка [cursor-intensive-landing](cursor-intensive-landing/) — HTML, стили, фото, логотипы.
