@@ -1,0 +1,6 @@
+[build]
+  publish = "cursor-intensive-landing"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"

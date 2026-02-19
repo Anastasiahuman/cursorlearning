@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor для менеджеров — Интенсив</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #faf8f5;
+            --bg-warm: #f3efe9;
+            --surface: #ffffff;
+            --border: #e8e2d9;
+            --border-light: #f0ebe4;
+            --text: #1a1a1a;
+            --text-muted: #6b6560;
+            --accent: #c96442;
+            --accent-hover: #b5563a;
+            --accent-light: #d4886e;
+            --accent-bg: rgba(201, 100, 66, 0.08);
+            --green: #3a7d44;
+            --green-bg: rgba(58, 125, 68, 0.08);
+            --red-muted: #b04a3a;
+            --red-bg: rgba(176, 74, 58, 0.08);
+            --radius: 14px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: -0.3px;
+            color: var(--text);
+        }
+        .nav-logo-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-logo-icons img.nav-logo-img {
+            display: block;
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        .nav-logo-x {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        .hero-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .hero-logos img.hero-logo-img {
+            display: block;
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+        .hero-logos-x {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .hero h1 {
+            font-size: clamp(36px, 5.5vw, 60px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            max-width: 780px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text);
+        }
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+        .hero-sub {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 18px 40px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .hero-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(201, 100, 66, 0.2);
+        }
+        .hero-meta {
+            margin-top: 28px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .hero-meta strong { color: var(--accent); }
+
+        /* ===== SECTIONS ===== */
+        section { padding: 80px 0; }
+        .section-alt { background: var(--bg-warm); }
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 48px;
+            color: var(--text);
+        }
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin-top: -36px;
+            margin-bottom: 48px;
+        }
+
+        /* ===== AUDIENCE CARDS ===== */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+        }
+        .audience-card {
+            padding: 28px;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .audience-card:hover {
+            border-color: var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .audience-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            font-size: 18px;
+        }
+        .audience-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .audience-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== TIME COMPARISON ===== */
+        .speed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+        .speed-card {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 22px;
+            text-align: center;
+        }
+        .speed-task {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .speed-multiplier {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .speed-detail {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .speed-detail s { color: var(--red-muted); }
+        .speed-detail strong { color: var(--green); font-weight: 600; }
+        .comparison-footer {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 15px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ===== PROGRAM / TIMELINE ===== */
+        .timeline {
+            position: relative;
+            padding-left: 36px;
+            max-width: 680px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 32px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -36px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2.5px solid var(--accent);
+        }
+        .timeline-item.break .timeline-dot {
+            border-color: var(--border);
+            background: var(--border);
+            width: 10px;
+            height: 10px;
+            left: -33px;
+            top: 9px;
+        }
+        .timeline-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .timeline-header h3 {
+            font-size: 17px;
+            font-weight: 700;
+        }
+        .timeline-time {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            background: var(--accent-bg);
+            padding: 2px 10px;
+            border-radius: 100px;
+        }
+        .timeline-points {
+            list-style: none;
+        }
+        .timeline-points li {
+            font-size: 14px;
+            color: var(--text-muted);
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .timeline-points li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--border);
+        }
+        .timeline-item.break .timeline-header h3 {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* ===== CASES ===== */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 14px;
+        }
+        .case-card {
+            padding: 26px;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .case-card:hover {
+            border-color: var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        .case-number {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+        .case-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .case-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .case-card.bonus {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--accent-bg), rgba(255,255,255,0.5));
+        }
+
+        /* ===== FORMAT ===== */
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+        .format-item {
+            padding: 22px;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+        }
+        .format-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .format-item h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .format-item p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ===== WORKSPACE ACCENT ===== */
+        .workspace {
+            background: var(--surface);
+            border: 1.5px solid var(--accent);
+            border-radius: 20px;
+            padding: 48px;
+            text-align: center;
+        }
+        .workspace h2 {
+            font-size: clamp(22px, 3.5vw, 30px);
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+        .workspace > p {
+            font-size: 15px;
+            color: var(--text-muted);
+            max-width: 540px;
+            margin: 0 auto 24px;
+        }
+        .workspace-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto 24px;
+            text-align: left;
+        }
+        .workspace-features li {
+            list-style: none;
+            font-size: 14px;
+            padding-left: 26px;
+            position: relative;
+            color: var(--text-muted);
+        }
+        .workspace-features li::before {
+            content: '~';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .workspace-quote {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+            border-top: 1px solid var(--border-light);
+            padding-top: 18px;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-crypto-note {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 32px;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pricing-crypto-note a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .pricing-crypto-note a:hover { text-decoration: underline; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            align-items: start;
+        }
+        .price-card {
+            padding: 32px;
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            position: relative;
+        }
+        .price-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 4px 30px rgba(201, 100, 66, 0.1);
+        }
+        .price-badge {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 100px;
+        }
+        .price-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .price-amount {
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin: 10px 0 18px;
+        }
+        .price-amount span {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .price-features {
+            list-style: none;
+            margin-bottom: 22px;
+        }
+        .price-features li {
+            font-size: 14px;
+            color: var(--text-muted);
+            padding: 5px 0;
+            padding-left: 22px;
+            position: relative;
+        }
+        .price-features li::before {
+            content: '~';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 700;
+        }
+        .price-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+        .price-btn.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .price-btn.primary:hover { background: var(--accent-hover); }
+        .price-btn.secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .price-btn.secondary:hover { border-color: var(--text-muted); }
+        .price-note {
+            text-align: center;
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FAQ ===== */
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--border-light);
+        }
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 600;
+            text-align: left;
+            padding: 18px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+        }
+        .faq-q::after {
+            content: '+';
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+        .faq-item.active .faq-q::after {
+            transform: rotate(45deg);
+        }
+        .faq-a {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.active .faq-a {
+            max-height: 200px;
+            padding-bottom: 18px;
+        }
+
+        /* ===== SPEAKERS ===== */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .speaker-card {
+            background: var(--surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .speaker-photo-wrap {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: var(--bg-warm);
+            overflow: hidden;
+            position: relative;
+        }
+        .speaker-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+        .speaker-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--bg-warm), var(--border-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: var(--border);
+        }
+        .speaker-info {
+            padding: 22px 26px 26px;
+        }
+        .speaker-info h3 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .speaker-role {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .speaker-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .speaker-info p + p { margin-top: 6px; }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            text-align: center;
+            padding: 80px 0 100px;
+        }
+        .final-cta h2 {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+        .final-cta > .container > p {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 0 auto 32px;
+        }
+        .final-cta .hero-cta { margin-top: 8px; margin-bottom: 72px; }
+        .final-meta {
+            margin-top: 0;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 28px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .footer-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        /* ===== MOBILE STICKY CTA ===== */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-light);
+            z-index: 100;
+        }
+        .mobile-cta a {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            section { padding: 56px 0; }
+            .hero { padding: 110px 0 56px; }
+            .hero-sub { font-size: 16px; }
+            .hero-logos img.hero-logo-img { width: 28px; height: 28px; }
+            .audience-grid { grid-template-columns: 1fr; }
+            .cases-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .speakers-grid { grid-template-columns: 1fr; }
+            .format-grid { grid-template-columns: 1fr 1fr; }
+            .workspace { padding: 28px 20px; }
+            .mobile-cta { display: block; }
+            .final-cta { padding-bottom: 130px; }
+            .speed-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline { padding-left: 30px; }
+        }
+
+        @media (max-width: 480px) {
+            .format-grid { grid-template-columns: 1fr; }
+            .hero h1 { letter-spacing: -1px; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== PAYMENT MODAL ===== */
+        .payment-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .payment-overlay.open { display: flex; }
+        .payment-modal {
+            background: var(--surface);
+            border-radius: 20px;
+            max-width: 440px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+        }
+        .payment-modal h3 {
+            font-size: 22px;
+            font-weight: 800;
+            padding: 24px 24px 8px;
+        }
+        .payment-modal .tariff-sum {
+            font-size: 15px;
+            color: var(--accent);
+            font-weight: 600;
+            padding: 0 24px 20px;
+        }
+        .payment-form {
+            padding: 0 24px 24px;
+        }
+        .payment-form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .payment-form input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            margin-bottom: 16px;
+        }
+        .payment-form input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .payment-form input::placeholder { color: var(--border); }
+        .payment-method {
+            margin-bottom: 20px;
+        }
+        .payment-method label { margin-bottom: 10px; }
+        .payment-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .payment-options input { display: none; }
+        .payment-options span {
+            display: inline-block;
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .payment-options input:checked + span {
+            border-color: var(--accent);
+            background: var(--accent-bg);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .payment-form .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .payment-form .submit-btn:hover { background: var(--accent-hover); }
+        .payment-form .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .payment-form .error { color: var(--red-muted); font-size: 13px; margin-top: -10px; margin-bottom: 10px; }
+        .payment-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-warm);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+        .payment-close:hover { color: var(--text); }
+        .payment-modal .modal-relative { position: relative; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="container">
+        <div class="nav-logo">
+            <div class="nav-logo-icons">
+                <img src="cursor-logo.png" alt="Cursor" class="nav-logo-img" width="24" height="24">
+                <span class="nav-logo-x">+</span>
+                <img src="claude-logo.png" alt="Claude" class="nav-logo-img" width="24" height="24">
+            </div>
+            Intensive
+        </div>
+        <ul class="nav-links">
+            <li><a href="#program">Программа</a></li>
+            <li><a href="#pricing">Тарифы</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#speakers">Спикеры</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-logos">
+            <img src="cursor-logo.png" alt="Cursor" class="hero-logo-img" width="44" height="44">
+            <span class="hero-logos-x">+</span>
+            <img src="claude-logo.png" alt="Claude" class="hero-logo-img" width="44" height="44">
+        </div>
+        <div class="hero-badge">28 февраля  ·  12:00 МСК  ·  Онлайн</div>
+        <h1><span class="highlight">Cursor</span> для менеджеров</h1>
+        <p class="hero-sub">За один день научитесь собирать PRD, анализировать данные, делать презентации и автоматизировать рутину — без программирования</p>
+        <button type="button" class="hero-cta js-open-payment" data-amount="9990">Записаться — 9 990 &#8381;</button>
+        <p class="hero-meta">До 22 февраля — 9 990 &#8381;  ·  С 23 февраля — 12 900 &#8381;  ·  28 февраля, 12:00 МСК</p>
+    </div>
+</section>
+
+<!-- Введение (intro block) -->
+<section id="intro" class="section-alt">
+    <div class="container">
+        <p class="section-label fade-in">Введение</p>
+        <h2 class="section-title fade-in">Не курс по программированию.<br>Инструмент для тех, кто решает</h2>
+        <div class="audience-grid">
+            <div class="audience-card fade-in">
+                <div class="audience-icon">&#9744;</div>
+                <h3>Продакт-менеджеры</h3>
+                <p>Собирайте PRD, анализируйте метрики и готовьте презентации для стейкхолдеров — без ожидания аналитиков</p>
+            </div>
+            <div class="audience-card fade-in">
+                <div class="audience-icon">&#9998;</div>
+                <h3>Маркетологи</h3>
+                <p>Превращайте статьи в карусели для соцсетей, анализируйте данные кампаний и автоматизируйте отчёты</p>
+            </div>
+            <div class="audience-card fade-in">
+                <div class="audience-icon">&#9826;</div>
+                <h3>HR</h3>
+                <p>Создавайте описания вакансий, анализируйте результаты опросов и структурируйте базы знаний</p>
+            </div>
+            <div class="audience-card fade-in">
+                <div class="audience-icon">&#10148;</div>
+                <h3>Предприниматели</h3>
+                <p>Быстро тестируйте гипотезы, готовьте материалы для инвесторов и автоматизируйте процессы</p>
+            </div>
+            <div class="audience-card fade-in">
+                <div class="audience-icon">&#9878;</div>
+                <h3>Руководители</h3>
+                <p>Обрабатывайте таблицы, документацию и отчёты за минуты вместо часов</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIME COMPARISON -->
+<section id="comparison">
+    <div class="container">
+        <p class="section-label fade-in">До / После</p>
+        <h2 class="section-title fade-in">Сколько времени вы сэкономите</h2>
+
+        <div class="speed-grid">
+            <div class="speed-card fade-in">
+                <div class="speed-task">PRD на фичу</div>
+                <div class="speed-multiplier">x20</div>
+                <div class="speed-detail"><s>3-4 часа</s> &#8594; <strong>10 мин</strong></div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-task">Презентация по метрикам</div>
+                <div class="speed-multiplier">x30</div>
+                <div class="speed-detail"><s>2-3 часа</s> &#8594; <strong>5 мин</strong></div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-task">Обработка таблиц</div>
+                <div class="speed-multiplier">x30</div>
+                <div class="speed-detail"><s>1-2 часа</s> &#8594; <strong>3 мин</strong></div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-task">Анализ документации</div>
+                <div class="speed-multiplier">x16</div>
+                <div class="speed-detail"><s>полдня</s> &#8594; <strong>15 мин</strong></div>
+            </div>
+            <div class="speed-card fade-in">
+                <div class="speed-task">Карусель для соцсетей</div>
+                <div class="speed-multiplier">x50</div>
+                <div class="speed-detail"><s>2-3 ч в Canva</s> &#8594; <strong>3 мин</strong></div>
+            </div>
+        </div>
+        <p class="comparison-footer fade-in">Это не магия — это навык. И мы научим вас ему за один день.</p>
+    </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program" class="section-alt">
+    <div class="container">
+        <p class="section-label fade-in">Программа</p>
+        <h2 class="section-title fade-in">3,5 часа, 4 модуля, 5 кейсов</h2>
+
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3>Введение</h3>
+                    <span class="timeline-time">30 мин</span>
+                </div>
+                <ul class="timeline-points">
+                    <li>Почему Cursor — это тренд, а не хайп</li>
+                    <li>Где реальная экономия, а где иллюзия автоматизации</li>
+                    <li>Как AI-инструменты меняют работу менеджеров</li>
+                </ul>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3>Настройка и архитектура</h3>
+                    <span class="timeline-time">60 мин</span>
+                </div>
+                <ul class="timeline-points">
+                    <li>Установка и подключение Cursor — пошагово</li>
+                    <li>Как писать инструкции, чтобы получать нужный результат</li>
+                    <li>Как структурировать проект и не превращать всё в хаос</li>
+                    <li>Практика: настраиваете своё рабочее пространство</li>
+                </ul>
+            </div>
+            <div class="timeline-item break fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3>Перерыв — 15 минут</h3>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3>Практика на реальных кейсах</h3>
+                    <span class="timeline-time">90-120 мин</span>
+                </div>
+                <ul class="timeline-points">
+                    <li>5 кейсов, которые вы проходите руками</li>
+                    <li>Каждый кейс — готовый артефакт в работу</li>
+                </ul>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3>Продвинутые возможности</h3>
+                    <span class="timeline-time">20 мин</span>
+                </div>
+                <ul class="timeline-points">
+                    <li>Работа в команде через Cursor</li>
+                    <li>Связка с Notion и n8n</li>
+                    <li>Как встроить Cursor в ежедневные процессы</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+    <div class="container">
+        <p class="section-label fade-in">Практика</p>
+        <h2 class="section-title fade-in">5 кейсов + бонус</h2>
+        <p class="section-subtitle fade-in">Каждый кейс — готовый артефакт, который вы забираете в работу</p>
+
+        <div class="cases-grid">
+            <div class="case-card fade-in">
+                <div class="case-number">Кейс 01</div>
+                <h3>Создание PRD</h3>
+                <p>Из набросков и заметок — в структурированный документ с user stories, метриками успеха и приоритезацией</p>
+            </div>
+            <div class="case-card fade-in">
+                <div class="case-number">Кейс 02</div>
+                <h3>Презентация по метрикам</h3>
+                <p>Загружаете CSV с данными — получаете готовую презентацию с графиками, выводами и рекомендациями</p>
+            </div>
+            <div class="case-card fade-in">
+                <div class="case-number">Кейс 03</div>
+                <h3>Работа с таблицами</h3>
+                <p>Очистка, трансформация и анализ данных — без сложных формул. Cursor сам предложит инсайты</p>
+            </div>
+            <div class="case-card fade-in">
+                <div class="case-number">Кейс 04</div>
+                <h3>Анализ документации</h3>
+                <p>Загружаете 50 страниц регламента — получаете выжимку, противоречия и чек-лист действий</p>
+            </div>
+            <div class="case-card fade-in">
+                <div class="case-number">Кейс 05</div>
+                <h3>Связка с Notion / n8n</h3>
+                <p>Cursor как часть рабочей инфраструктуры, а не просто «ещё один инструмент»</p>
+            </div>
+            <div class="case-card bonus fade-in">
+                <div class="case-number">Бонус</div>
+                <h3>Карусель для соцсетей</h3>
+                <p>Из любой статьи — стильная экспертная карусель за 3 минуты. Дизайнер не нужен</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FORMAT -->
+<section id="format" class="section-alt">
+    <div class="container">
+        <p class="section-label fade-in">Формат</p>
+        <h2 class="section-title fade-in">Что вы получаете</h2>
+
+        <div class="format-grid">
+            <div class="format-item fade-in">
+                <div class="format-icon">&#9201;</div>
+                <h3>1 день, 3,5 часа</h3>
+                <p>Концентрированно и без воды</p>
+            </div>
+            <div class="format-item fade-in">
+                <div class="format-icon">&#9655;</div>
+                <h3>Запись</h3>
+                <p>Пересматривайте в своём темпе</p>
+            </div>
+            <div class="format-item fade-in">
+                <div class="format-icon">&#9645;</div>
+                <h3>Тестовый репозиторий</h3>
+                <p>Практикуйтесь на готовых данных</p>
+            </div>
+            <div class="format-item fade-in">
+                <div class="format-icon">&#9993;</div>
+                <h3>Чат на 1 месяц</h3>
+                <p>Задавайте вопросы после интенсива</p>
+            </div>
+            <div class="format-item fade-in">
+                <div class="format-icon">&#9998;</div>
+                <h3>Домашнее задание</h3>
+                <p>Закрепите навыки на своих задачах</p>
+            </div>
+            <div class="format-item fade-in">
+                <div class="format-icon">&#9881;</div>
+                <h3>Рабочее пространство</h3>
+                <p>Настроенная среда для ваших задач</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WORKSPACE ACCENT -->
+<section id="workspace">
+    <div class="container">
+        <div class="workspace fade-in">
+            <h2>Все кейсы и промпты — уже внутри</h2>
+            <p>В рабочем пространстве уже есть все кейсы и промпты, которые мы разбираем на интенсиве. Не нужно загружать свои данные с нуля — берите готовые шаблоны за основу и создавайте свои задачи на их базе.</p>
+            <ul class="workspace-features">
+                <li>Все 5 кейсов с промптами уже внутри — повторяйте и модифицируйте под свои задачи</li>
+                <li>Структура, инструкции и шаблоны настроены — просто начните работать</li>
+                <li>Доступ сохраняется после интенсива — возвращайтесь когда удобно</li>
+            </ul>
+            <p class="workspace-quote">Большинство курсов заканчиваются записью. Наш — рабочим инструментом, который вы забираете с собой.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING: 2 тарифа -->
+<section id="pricing" class="section-alt">
+    <div class="container">
+        <p class="section-label fade-in">Тарифы</p>
+        <h2 class="section-title fade-in">Выберите свой формат</h2>
+
+        <div class="pricing-grid" style="max-width:640px; margin: 0 auto;">
+            <div class="price-card featured fade-in">
+                <div class="price-badge">До 22 февраля</div>
+                <h3>Интенсив</h3>
+                <div class="price-amount">9 990 <span>&#8381;</span></div>
+                <ul class="price-features">
+                    <li>Доступ к интенсиву</li>
+                    <li>Запись + тестовый репозиторий</li>
+                    <li>Рабочее пространство с кейсами и промптами</li>
+                    <li>Чат поддержки на 1 месяц</li>
+                    <li>Домашнее задание с обратной связью</li>
+                </ul>
+                <button type="button" class="price-btn primary js-open-payment" data-amount="9990">Записаться</button>
+                <p class="price-note">С 23 февраля — 12 900 &#8381;</p>
+            </div>
+            <div class="price-card fade-in">
+                <h3>С персональным разбором</h3>
+                <div class="price-amount">24 990 <span>&#8381;</span></div>
+                <ul class="price-features">
+                    <li>Всё из тарифа «Интенсив»</li>
+                    <li>Настройка Cursor под ваши задачи</li>
+                    <li>Персональный разбор процессов</li>
+                    <li>1 созвон после интенсива</li>
+                </ul>
+                <button type="button" class="price-btn secondary js-open-payment" data-amount="24990">Записаться</button>
+            </div>
+        </div>
+        <div class="pricing-crypto-note fade-in">
+            Если хотите оплатить криптой — напишите в Telegram <a href="https://t.me/bolotva" target="_blank" rel="noopener">@bolotva</a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <div class="container">
+        <p class="section-label fade-in">FAQ</p>
+        <h2 class="section-title fade-in">Частые вопросы</h2>
+
+        <div class="faq-list">
+            <div class="faq-item fade-in">
+                <button class="faq-q">Я не программист. Мне точно подойдёт?</button>
+                <div class="faq-a">Именно для вас. Интенсив создан для продактов, маркетологов, HR, руководителей и предпринимателей. Никакого кода — только практические задачи из вашей работы.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-q">Чем это отличается от ChatGPT?</button>
+                <div class="faq-a">ChatGPT — это чат. Cursor — это рабочее пространство. Вы работаете с файлами, данными, таблицами и документами напрямую. Результат — не текст в окне чата, а готовый артефакт: презентация, отчёт, PRD.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-q">А если я не успею за 3,5 часа?</button>
+                <div class="faq-a">Будет запись и чат поддержки на месяц. Плюс домашнее задание, чтобы закрепить всё в своём темпе.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-q">Это правда работает или просто красивая демонстрация?</button>
+                <div class="faq-a">На интенсиве вы делаете всё своими руками. 5 кейсов — 5 реальных результатов. Если не получится — спросите в чате, разберём вместе.</div>
+            </div>
+            <div class="faq-item fade-in">
+                <button class="faq-q">У меня Mac / Windows / Linux — подойдёт?</button>
+                <div class="faq-a">Да. Cursor работает на всех платформах.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SPEAKERS -->
+<section id="speakers" class="section-alt">
+    <div class="container">
+        <p class="section-label fade-in">Спикеры</p>
+        <h2 class="section-title fade-in">Кто ведёт интенсив</h2>
+
+        <div class="speakers-grid">
+            <div class="speaker-card fade-in">
+                <div class="speaker-photo-wrap">
+                    <img src="vasilisa.jpeg" alt="Василиса Болотова" class="speaker-photo" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'" />
+                    <div class="speaker-photo-placeholder" style="display:none">V</div>
+                </div>
+                <div class="speaker-info">
+                    <h3>Василиса Болотова</h3>
+                    <div class="speaker-role">AI-эксперт, основатель Simple AI</div>
+                    <p>7 лет руководит AI-продуктами. В прошлом: AI Lead Anyclass, CEO ML-стартапа TWINO, Product Owner умного дома МТС.</p>
+                    <p>Основатель Simple AI — в продакшене 50+ агентов. Клиенты: Ростелеком, РЖД, Билайн, КРОК, Альфа-Банк. Ведёт канал «Гламурный GPT».</p>
+                </div>
+            </div>
+            <div class="speaker-card fade-in">
+                <div class="speaker-photo-wrap">
+                    <img src="anastasia.jpeg" alt="Анастасия Аманова" class="speaker-photo" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'" />
+                    <div class="speaker-photo-placeholder" style="display:none">A</div>
+                </div>
+                <div class="speaker-info">
+                    <h3>Анастасия Аманова</h3>
+                    <div class="speaker-role">Head of Product, ведущая подкаста «Жизнь продакта»</div>
+                    <p>9+ лет в продакт-менеджменте. Head of Product Riki Family (Смешарики), ex-Сбер, ВТБ — продукты с аудиторией 20 млн+.</p>
+                    <p>Создала ферму AI-продуктов для работы и жизни. Менторит проекты по росту LTV и Retention с помощью AI как ускорителя стратегии.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+    <div class="container">
+        <h2 class="fade-in">Один день — и вы работаете по-другому</h2>
+        <p class="fade-in">Cursor не заменит вашу экспертизу. Но уберёт рутину, ускорит подготовку и освободит время для решений, которые действительно важны.</p>
+        <button type="button" class="hero-cta fade-in js-open-payment" data-amount="9990">Записаться на интенсив</button>
+        <p class="final-meta fade-in">До 22 февраля — 9 990 &#8381;  ·  С 23 февраля — 12 900 &#8381;  ·  28 февраля, 12:00 МСК</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-logos">
+            <img src="cursor-logo.png" alt="Cursor" width="18" height="18" style="object-fit:contain">
+            <span style="color:var(--border)">+</span>
+            <img src="claude-logo.png" alt="Claude" width="18" height="18" style="object-fit:contain">
+        </div>
+        2025 Cursor Intensive  ·  Василиса Болотова & Анастасия Аманова
+    </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-cta">
+    <button type="button" class="js-open-payment" data-amount="9990" style="display:block;width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;">Записаться — 9 990 &#8381;</button>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div id="paymentOverlay" class="payment-overlay" aria-hidden="true">
+    <div class="payment-modal modal-relative">
+        <button type="button" class="payment-close" id="paymentClose" aria-label="Закрыть">&#215;</button>
+        <h3>Записаться на интенсив</h3>
+        <p class="tariff-sum" id="paymentTariffSum">9 990 &#8381;</p>
+        <form id="paymentForm" class="payment-form">
+            <input type="hidden" name="amount" id="paymentAmount" value="9990">
+            <label for="paymentName">Имя</label>
+            <input type="text" id="paymentName" name="name" placeholder="Как к вам обращаться?" required>
+            <label for="paymentEmail">Email</label>
+            <input type="email" id="paymentEmail" name="email" placeholder="example@mail.ru" required>
+            <label for="paymentPhone">Телефон</label>
+            <input type="tel" id="paymentPhone" name="phone" placeholder="+7 999 123-45-67" required>
+            <div class="payment-method">
+                <label>Способ оплаты</label>
+                <div class="payment-options">
+                    <label><input type="radio" name="paymentMethod" value="yookassa" checked><span>Карта РФ (ЮKassa)</span></label>
+                    <label><input type="radio" name="paymentMethod" value="stripe"><span>Иностранная карта (Stripe)</span></label>
+                </div>
+            </div>
+            <p id="paymentError" class="error" style="display:none;"></p>
+            <button type="submit" class="submit-btn" id="paymentSubmit">Перейти к оплате</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Payment: links and API (set PAYMENT_API_URL when backend is deployed)
+    window.PAYMENT_LINKS = {
+        stripe: { 9990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603', 24990: 'https://buy.stripe.com/8x25kD8TY8hN4Vi27E3F604' },
+        yookassa: { 9990: 'https://yookassa.ru/my/i/aY41DlTAd6Eb/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
+    };
+    window.PAYMENT_API_URL = '/.netlify/functions/send-to-notion';
+
+    (function paymentModal() {
+        var overlay = document.getElementById('paymentOverlay');
+        var form = document.getElementById('paymentForm');
+        var amountInput = document.getElementById('paymentAmount');
+        var tariffSumEl = document.getElementById('paymentTariffSum');
+        var errorEl = document.getElementById('paymentError');
+        var submitBtn = document.getElementById('paymentSubmit');
+
+        function openModal(amount) {
+            amount = amount === 24990 ? 24990 : 9990;
+            amountInput.value = amount;
+            tariffSumEl.textContent = (amount === 9990 ? '9 990' : '24 990') + ' \u20BD';
+            form.reset();
+            amountInput.value = amount;
+            errorEl.style.display = 'none';
+            overlay.classList.add('open');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            overlay.classList.remove('open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.js-open-payment').forEach(function(btn) {
+            btn.addEventListener('click', function() { openModal(parseInt(btn.getAttribute('data-amount'), 10)); });
+        });
+        document.getElementById('paymentClose').addEventListener('click', closeModal);
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var name = (document.getElementById('paymentName').value || '').trim();
+            var email = (document.getElementById('paymentEmail').value || '').trim();
+            var phone = (document.getElementById('paymentPhone').value || '').trim();
+            var amount = parseInt(amountInput.value, 10) || 9990;
+            var method = form.paymentMethod.value || 'yookassa';
+
+            if (!name) { errorEl.textContent = 'Введите имя'; errorEl.style.display = 'block'; return; }
+            if (!email) { errorEl.textContent = 'Введите email'; errorEl.style.display = 'block'; return; }
+            if (!phone) { errorEl.textContent = 'Введите телефон'; errorEl.style.display = 'block'; return; }
+
+            errorEl.style.display = 'none';
+            submitBtn.disabled = true;
+
+            var redirectUrl = window.PAYMENT_LINKS[method][amount] || window.PAYMENT_LINKS.yookassa[amount];
+            var payload = { name: name, email: email, phone: phone, amount: amount, paymentMethod: method, status: 'ожидает оплаты' };
+
+            if (window.PAYMENT_API_URL) {
+                fetch(window.PAYMENT_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    window.location.href = (data && data.redirectUrl) ? data.redirectUrl : redirectUrl;
+                })
+                .catch(function() {
+                    window.location.href = redirectUrl;
+                    submitBtn.disabled = false;
+                });
+            } else {
+                window.location.href = redirectUrl;
+                submitBtn.disabled = false;
+            }
+        });
+    })();
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var item = btn.parentElement;
+            var wasActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+            if (!wasActive) item.classList.add('active');
+        });
+    });
+
+    // Scroll fade-in
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+</script>
+
+</body>
+</html>
