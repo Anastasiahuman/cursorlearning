@@ -1,8 +1,8 @@
 /**
  * Netlify Function: заявка с лендинга → Notion (таблица), возвращает ссылку на оплату.
  * Env: NOTION_API_KEY (Integration token), NOTION_DATABASE_ID (ID таблицы из URL).
- * Таблица в Notion должна содержать свойства: Имя (title), Email (email), Телефон (phone_number),
- * Сумма (number), Оплата (rich_text), Статус (select: "Не оплачено" / "Оплачено"), Дата (date).
+ * Таблица: Name (title), Email (email), Phone (phone_number), Сумма (number),
+ * Status (select: "Не оплачено" / "Оплачено"), Date (date).
  */
 
 const PAYMENT_LINKS = {
@@ -61,29 +61,25 @@ exports.handler = async (event) => {
   const redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
   const today = new Date().toISOString().split('T')[0];
 
-  const paymentLabel = paymentMethod === 'stripe' ? 'Stripe (иностранная карта)' : 'ЮKassa (карта РФ)';
   const payload = {
     parent: { database_id: databaseId.replace(/-/g, '') },
     properties: {
-      'Имя': {
+      'Name': {
         title: [{ type: 'text', text: { content: (name || '—').slice(0, 2000) } }]
       },
       'Email': {
         email: email || null
       },
-      'Телефон': {
+      'Phone': {
         phone_number: phone || null
       },
       'Сумма': {
         number: amount
       },
-      'Оплата': {
-        rich_text: [{ type: 'text', text: { content: paymentLabel.slice(0, 2000) } }]
-      },
-      'Статус': {
+      'Status': {
         select: { name: statusLabel }
       },
-      'Дата': {
+      'Date': {
         date: { start: today }
       }
     }
