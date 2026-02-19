@@ -1,31 +1,53 @@
-# Публикация лендинга на Netlify
+# Деплой лендинга через Git (Netlify) + Notion
 
-## 1. Подключение репозитория
+Один раз подключаешь репозиторий к Netlify — дальше каждый `git push` автоматически обновляет сайт. Заявки с формы сохраняются в таблицу Notion.
 
-- Зайдите на [netlify.com](https://netlify.com) → Add new site → Import an existing project.
-- Подключите репозиторий (GitHub/GitLab) с этим проектом. Корень репозитория — папка с `netlify.toml`.
+---
 
-## 2. Настройки сборки (уже в netlify.toml)
+## Шаг 1. Подключить репозиторий к Netlify
 
-- **Publish directory:** `cursor-intensive-landing` (указано в netlify.toml).
-- **Build command:** оставьте пустым (сборка не нужна).
-- **Functions directory:** `netlify/functions` (для отправки заявок в Telegram).
+1. Зайди на **[netlify.com](https://netlify.com)** → войди в аккаунт.
+2. **Add new site** → **Import an existing project**.
+3. Выбери **GitHub** и репозиторий **Anastasiahuman/cursorlearning**.
+4. Настройки сборки **не меняй** (всё задано в `netlify.toml`):
+   - **Build command:** пусто
+   - **Publish directory:** `cursor-intensive-landing`
+   - **Functions directory:** `netlify/functions`
+5. Нажми **Deploy site**. Первый деплой подтянет лендинг из Git.
 
-## 3. Переменные окружения
+---
 
-В Netlify: **Site settings → Environment variables** добавьте:
+## Шаг 2. Переменные для Notion (обязательно)
 
-| Переменная             | Значение | Описание                          |
-|------------------------|----------|-----------------------------------|
-| `TELEGRAM_BOT_TOKEN`   | ваш токен бота | Токен от @BotFather              |
-| `TELEGRAM_CHAT_ID`     | ваш chat_id   | Узнать: напишите боту, затем `node get-telegram-chat-id.js` |
+Без них заявки в Notion не попадут.
 
-## 4. Деплой
+1. В Netlify: твой сайт → **Site configuration** → **Environment variables** → **Add a variable** / **Add from .env**.
+2. Добавь две переменные:
 
-- Нажмите **Deploy site**. Главная страница сайта = `index.html` (лендинг).
-- После деплоя форма «Записаться» будет отправлять данные в Telegram и перенаправлять на оплату (функция `/.netlify/functions/send-telegram`).
+| Имя | Значение | Видимость |
+|-----|----------|-----------|
+| `NOTION_API_KEY` | Токен интеграции Notion (начинается с `ntn_` или `secret_`) | All |
+| `NOTION_DATABASE_ID` | `30c59203544880e19b8af372b6c731d4` | All |
 
-## Если деплой падает
+3. Сохрани. Потом: **Deploys** → **Trigger deploy** → **Deploy site**, чтобы новый деплой подхватил переменные.
 
-- Убедитесь, что в репозитории есть папка **cursor-intensive-landing** с файлами: `index.html`, `cursor-intensive.html`, `vasilisa.jpeg`, `anastasia.jpeg`, `cursor-logo.png`, `claude-logo.png`.
-- В логах Netlify смотрите ошибку: Build → Deploy log. Частая причина — неверный путь в **Publish directory** (должно быть ровно `cursor-intensive-landing`).
+Токен берётся из [Notion → My integrations](https://www.notion.so/my-integrations). Таблица должна быть расшарена с этой интеграцией (⋯ → Connections → выбрать интеграцию).
+
+---
+
+## Шаг 3. Как это работает дальше
+
+- Ты пушишь в **main** репозитория **cursorlearning** → Netlify сам делает новый деплой и подтягивает изменения.
+- Лендинг открывается по адресу вида `https://<имя-сайта>.netlify.app`.
+- Кнопка «Записаться» открывает форму (имя, email, телефон, способ оплаты). После отправки:
+  - в Notion создаётся строка в таблице (Name, Email, Phone, Сумма, Status, Date);
+  - пользователь перенаправляется на оплату (Stripe или ЮKassa).
+
+Таблица Notion: [30c59203544880e19b8af372b6c731d4](https://www.notion.so/30c59203544880e19b8af372b6c731d4). Колонки: **Name**, **Email**, **Phone**, **Сумма**, **Status**, **Date**. Подробнее — в [NOTION_SETUP.md](NOTION_SETUP.md).
+
+---
+
+## Если что-то не так
+
+- **Сайт не открывается:** в **Deploys** посмотри лог последнего деплоя; убедись, что в репо есть папка `cursor-intensive-landing` с `index.html` и картинками.
+- **Заявки не попадают в Notion:** проверь, что в Netlify заданы `NOTION_API_KEY` и `NOTION_DATABASE_ID`, таблица расшарена с интеграцией, после смены переменных сделан **Trigger deploy**.
