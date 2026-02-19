@@ -4,6 +4,6 @@
   "description": "Cursor Training + лендинг интенсива",
   "type": "module",
   "scripts": {
-    "build": "mkdir -p .vercel-output && cp -r cursor-intensive-landing/* .vercel-output/ && cp -r api .vercel-output/"
+    "build": "mkdir -p public && cp -r cursor-intensive-landing/* public/ && cp -r api public/"
   }
 }
