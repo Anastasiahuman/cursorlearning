@@ -1360,7 +1360,7 @@
         stripe: { 9990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603', 24990: 'https://buy.stripe.com/8x25kD8TY8hN4Vi27E3F604' },
         yookassa: { 9990: 'https://yookassa.ru/my/i/aY41DlTAd6Eb/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
     };
-    window.PAYMENT_API_URL = ''; // Для Notion: разверни api/send-to-notion.js (Vercel) и укажи URL здесь
+    window.PAYMENT_API_URL = '/api/send-to-notion';
 
     (function paymentModal() {
         var overlay = document.getElementById('paymentOverlay');

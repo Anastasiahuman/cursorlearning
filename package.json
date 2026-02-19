@@ -2,5 +2,8 @@
   "name": "cursorlearning",
   "version": "1.0.0",
   "description": "Cursor Training + лендинг интенсива",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "build": "mkdir -p .vercel-output && cp -r cursor-intensive-landing/* .vercel-output/ && cp -r api .vercel-output/"
+  }
 }
