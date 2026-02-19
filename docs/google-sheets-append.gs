@@ -13,7 +13,8 @@ function doPost(e) {
       body.amount != null ? body.amount : '',
       body.paymentMethod || '',
       body.status || '',
-      body.date || ''
+      body.date || '',
+      body.time || ''
     ];
     sheet.appendRow(row);
     return ContentService.createTextOutput(JSON.stringify({ ok: true }))

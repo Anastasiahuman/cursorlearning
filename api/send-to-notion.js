@@ -42,9 +42,11 @@ export default async function handler(req, res) {
   const statusLabel = body.status === 'оплачено' ? 'Оплачено' : 'Не оплачено';
 
   const redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
-  const today = new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const today = now.toISOString().split('T')[0];
+  const time = now.toTimeString().slice(0, 8);
 
-  const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today };
+  const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today, time };
 
   const sheetsUrl = process.env.GOOGLE_SHEETS_APPEND_URL;
   if (sheetsUrl) {
