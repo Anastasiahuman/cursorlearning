@@ -76,14 +76,10 @@ export default async function handler(req, res) {
     });
     if (!notionRes.ok) {
       const err = await notionRes.json().catch(() => ({}));
-      console.error('Notion error:', notionRes.status, err);
-      res.status(502).json({ error: 'Не удалось сохранить заявку в Notion', details: err.message || (err && err.code) || '' });
-      return;
+      console.error('Notion save failed:', notionRes.status, err);
     }
   } catch (e) {
     console.error('Notion request error:', e);
-    res.status(502).json({ error: 'Ошибка при сохранении заявки', details: e.message });
-    return;
   }
 
   res.status(200).json({ redirectUrl });
