@@ -67,6 +67,7 @@ export default async function handler(req, res) {
   const statusLabel = body.status === 'оплачено' ? 'Оплачено' : 'Не оплачено';
 
   let redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
+  let yookassaSource = 'link';
   if (paymentMethod === 'yookassa') {
     const shopId = process.env.YOOKASSA_SHOP_ID;
     const secretKey = process.env.YOOKASSA_SECRET_KEY;
@@ -74,7 +75,10 @@ export default async function handler(req, res) {
     if (shopId && secretKey && siteUrl) {
       const returnUrl = `${siteUrl}/thanks.html`;
       const confirmationUrl = await createYooKassaPayment(amount, returnUrl, shopId, secretKey);
-      if (confirmationUrl) redirectUrl = confirmationUrl;
+      if (confirmationUrl) {
+        redirectUrl = confirmationUrl;
+        yookassaSource = 'api';
+      }
     }
   }
   const now = new Date();
@@ -82,6 +86,11 @@ export default async function handler(req, res) {
   const time = now.toISOString().slice(11, 19);
 
   const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today, time };
+
+  // #region agent log
+  fetch('http://127.0.0.1:7243/ingest/4f9ebcc9-dd0e-4880-ae59-484401268db7', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'send-to-notion.js:leadRow', message: 'payload to Sheets', data: { leadRow, hasTime: !!leadRow.time }, timestamp: Date.now(), hypothesisId: 'time-in-payload' }) }).catch(() => {});
+  fetch('http://127.0.0.1:7243/ingest/4f9ebcc9-dd0e-4880-ae59-484401268db7', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'send-to-notion.js:yookassa', message: 'yookassa source', data: { paymentMethod, yookassaSource }, timestamp: Date.now(), hypothesisId: 'yookassa-api-vs-link' }) }).catch(() => {});
+  // #endregion
 
   const sheetsUrl = process.env.GOOGLE_SHEETS_APPEND_URL;
   if (sheetsUrl) {
@@ -99,5 +108,9 @@ export default async function handler(req, res) {
     }
   }
 
-  res.status(200).json({ redirectUrl });
+  res.setHeader('X-Yookassa-Source', yookassaSource);
+  res.status(200).json({
+    redirectUrl,
+    debug: { time: leadRow.time, date: leadRow.date, yookassaSource: paymentMethod === 'yookassa' ? yookassaSource : null }
+  });
 }
