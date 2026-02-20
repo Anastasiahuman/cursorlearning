@@ -6,6 +6,11 @@ function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var body = e.postData ? JSON.parse(e.postData.contents) : {};
+    var time = body.time || '';
+    if (!time) {
+      var d = new Date();
+      time = Utilities.formatDate(d, Session.getScriptTimeZone(), 'HH:mm:ss');
+    }
     var row = [
       body.name || '',
       body.email || '',
@@ -14,7 +19,7 @@ function doPost(e) {
       body.paymentMethod || '',
       body.status || '',
       body.date || '',
-      body.time || ''
+      time
     ];
     sheet.appendRow(row);
     return ContentService.createTextOutput(JSON.stringify({ ok: true }))

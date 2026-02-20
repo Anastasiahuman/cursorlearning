@@ -44,7 +44,7 @@ export default async function handler(req, res) {
   const redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
   const now = new Date();
   const today = now.toISOString().split('T')[0];
-  const time = now.toTimeString().slice(0, 8);
+  const time = now.toISOString().slice(11, 19);
 
   const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today, time };
 
