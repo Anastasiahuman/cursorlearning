@@ -54,8 +54,9 @@
 Чтобы после оплаты по ЮKassa покупателю приходило **именно письмо** с кастомным текстом и ссылкой на чат:
 
 - Нужна **интеграция по API**: твой сервер создаёт платёж в ЮKassa (с `return_url` и т.д.), а не готовая ссылка из ЛК.
-- В [настройках HTTP-уведомлений](https://yookassa.ru/my/merchant/integration/http-notifications) ЮKassa укажи URL твоего обработчика (webhook).
-- На этом URL при событии «платёж успешен» твой код отправляет письмо (например через Resend) с текстом «Вы записаны на интенсив» и ссылкой на чат в Telegram.
+- В [настройках HTTP-уведомлений](https://yookassa.ru/my/http-notifications-settings) ЮKassa укажи URL: `https://твой-домен.vercel.app/api/webhook-yookassa` и включи событие **payment.succeeded**.
+- В Vercel должны быть заданы те же переменные, что и для писем после Stripe: **RESEND_API_KEY**, **CONFIRMATION_FROM_EMAIL**, **TELEGRAM_CHAT_LINK** (см. шаги 1–2 выше).
+- На этом URL при событии «платёж успешен» вызывается `api/webhook-yookassa.js`: он берёт email из `metadata` платежа и отправляет письмо через Resend с текстом «Вы записаны на интенсив» и ссылкой на чат в Telegram.
 
 То есть «кастомное письмо после оплаты» для ЮKassa делается только через свой backend и webhook, отдельно от готовых ссылок из ЛК.
 

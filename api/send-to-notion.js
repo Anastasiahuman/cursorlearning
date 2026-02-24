@@ -4,11 +4,11 @@
  */
 
 const PAYMENT_LINKS = {
-  stripe: { 9990: 'https://buy.stripe.com/8x25kD8TY8hN4Vi27E3F604', 24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603' },
-  yookassa: { 9990: 'https://yookassa.ru/my/i/aY41DlTAd6Eb/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
+  stripe: { 12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606' },
+  yookassa: { 12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l' }
 };
 
-async function createYooKassaPayment(amount, returnUrl, shopId, secretKey) {
+async function createYooKassaPayment(amount, returnUrl, shopId, secretKey, metadata = {}) {
   const idempotenceKey = `cursor-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
   const auth = Buffer.from(`${shopId}:${secretKey}`).toString('base64');
   const r = await fetch('https://api.yookassa.ru/v3/payments', {
@@ -22,7 +22,8 @@ async function createYooKassaPayment(amount, returnUrl, shopId, secretKey) {
       amount: { value: amount.toFixed(2), currency: 'RUB' },
       capture: true,
       confirmation: { type: 'redirect', return_url: returnUrl },
-      description: 'Интенсив Cursor для менеджеров'
+      description: 'Интенсив Cursor для менеджеров',
+      metadata: metadata
     })
   });
   if (!r.ok) {
@@ -62,11 +63,11 @@ export default async function handler(req, res) {
   const name = (body.name || '').trim();
   const email = (body.email || '').trim();
   const phone = (body.phone || '').trim();
-  const amount = parseInt(body.amount, 10) === 24990 ? 24990 : 9990;
+  const amount = parseInt(body.amount, 10) === 12900 ? 12900 : 12900;
   const paymentMethod = body.paymentMethod === 'stripe' ? 'stripe' : 'yookassa';
   const statusLabel = body.status === 'оплачено' ? 'Оплачено' : 'Не оплачено';
 
-  let redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
+  let redirectUrl = PAYMENT_LINKS[paymentMethod][12900] || PAYMENT_LINKS.yookassa[12900];
   let yookassaSource = 'link';
   if (paymentMethod === 'yookassa') {
     const shopId = process.env.YOOKASSA_SHOP_ID;
@@ -74,7 +75,10 @@ export default async function handler(req, res) {
     const siteUrl = (process.env.SITE_URL || '').replace(/\/$/, '');
     if (shopId && secretKey && siteUrl) {
       const returnUrl = `${siteUrl}/thanks.html`;
-      const confirmationUrl = await createYooKassaPayment(amount, returnUrl, shopId, secretKey);
+      const metadata = {};
+      if (email) metadata.customer_email = email;
+      if (name) metadata.customer_name = name;
+      const confirmationUrl = await createYooKassaPayment(amount, returnUrl, shopId, secretKey, metadata);
       if (confirmationUrl) {
         redirectUrl = confirmationUrl;
         yookassaSource = 'api';
