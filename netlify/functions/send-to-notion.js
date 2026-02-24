@@ -4,8 +4,8 @@
  */
 
 const PAYMENT_LINKS = {
-  stripe: { 12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606' },
-  yookassa: { 12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l' }
+  stripe: { 12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606', 24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603' },
+  yookassa: { 12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
 };
 
 const corsHeaders = {
@@ -40,11 +40,11 @@ exports.handler = async (event) => {
   const name = (body.name || '').trim();
   const email = (body.email || '').trim();
   const phone = (body.phone || '').trim();
-  const amount = 12900;
+  const amount = parseInt(body.amount, 10) === 24990 ? 24990 : 12900;
   const paymentMethod = body.paymentMethod === 'stripe' ? 'stripe' : 'yookassa';
   const statusLabel = body.status === 'оплачено' ? 'Оплачено' : 'Не оплачено';
 
-  const redirectUrl = PAYMENT_LINKS[paymentMethod][12900] || PAYMENT_LINKS.yookassa[12900];
+  const redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
   const today = new Date().toISOString().split('T')[0];
   const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today };
 

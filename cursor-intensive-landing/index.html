@@ -936,7 +936,7 @@
         </div>
         <ul class="nav-links">
             <li><a href="#program">Программа</a></li>
-            <li><a href="#pricing">Тариф</a></li>
+            <li><a href="#pricing">Тарифы</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#speakers">Спикеры</a></li>
         </ul>
@@ -1195,15 +1195,15 @@
     </div>
 </section>
 
-<!-- PRICING: один тариф -->
+<!-- PRICING: 2 тарифа -->
 <section id="pricing" class="section-alt">
     <div class="container">
-        <p class="section-label fade-in">Тариф</p>
-        <h2 class="section-title fade-in">Интенсив</h2>
+        <p class="section-label fade-in">Тарифы</p>
+        <h2 class="section-title fade-in">Выберите свой формат</h2>
 
-        <div class="pricing-grid" style="max-width:400px; margin: 0 auto;">
+        <div class="pricing-grid" style="max-width:640px; margin: 0 auto;">
             <div class="price-card featured fade-in">
-                <h3>Участие</h3>
+                <h3>Интенсив</h3>
                 <div class="price-amount">12 900 <span>&#8381;</span></div>
                 <ul class="price-features">
                     <li>Доступ к интенсиву</li>
@@ -1213,6 +1213,17 @@
                     <li>Домашнее задание с обратной связью</li>
                 </ul>
                 <button type="button" class="price-btn primary js-open-payment" data-amount="12900">Записаться</button>
+            </div>
+            <div class="price-card fade-in">
+                <h3>С персональным разбором</h3>
+                <div class="price-amount">24 990 <span>&#8381;</span></div>
+                <ul class="price-features">
+                    <li>Всё из тарифа «Интенсив»</li>
+                    <li>Настройка Cursor под ваши задачи</li>
+                    <li>Персональный разбор процессов</li>
+                    <li>1 созвон после интенсива</li>
+                </ul>
+                <button type="button" class="price-btn secondary js-open-payment" data-amount="24990">Записаться</button>
             </div>
         </div>
         <div class="pricing-crypto-note fade-in">
@@ -1344,8 +1355,8 @@
 <script>
     // Payment: links and API (set PAYMENT_API_URL when backend is deployed)
     window.PAYMENT_LINKS = {
-        stripe: { 12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606' },
-        yookassa: { 12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l' }
+        stripe: { 12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606', 24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603' },
+        yookassa: { 12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
     };
     window.PAYMENT_API_URL = '/api/send-to-notion';
 
@@ -1358,9 +1369,9 @@
         var submitBtn = document.getElementById('paymentSubmit');
 
         function openModal(amount) {
-            amount = 12900;
+            amount = amount === 24990 ? 24990 : 12900;
             amountInput.value = amount;
-            tariffSumEl.textContent = '12 900 \u20BD';
+            tariffSumEl.textContent = (amount === 12900 ? '12 900' : '24 990') + ' \u20BD';
             form.reset();
             amountInput.value = amount;
             errorEl.style.display = 'none';
@@ -1375,7 +1386,7 @@
         }
 
         document.querySelectorAll('.js-open-payment').forEach(function(btn) {
-            btn.addEventListener('click', function() { openModal(12900); });
+            btn.addEventListener('click', function() { openModal(parseInt(btn.getAttribute('data-amount'), 10)); });
         });
         document.getElementById('paymentClose').addEventListener('click', closeModal);
         overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
@@ -1385,7 +1396,7 @@
             var name = (document.getElementById('paymentName').value || '').trim();
             var email = (document.getElementById('paymentEmail').value || '').trim();
             var phone = (document.getElementById('paymentPhone').value || '').trim();
-            var amount = 12900;
+            var amount = parseInt(amountInput.value, 10) || 12900;
             var method = form.paymentMethod.value || 'yookassa';
 
             if (!name) { errorEl.textContent = 'Введите имя'; errorEl.style.display = 'block'; return; }
@@ -1395,7 +1406,7 @@
             errorEl.style.display = 'none';
             submitBtn.disabled = true;
 
-            var redirectUrl = window.PAYMENT_LINKS[method][12900] || window.PAYMENT_LINKS.yookassa[12900];
+            var redirectUrl = window.PAYMENT_LINKS[method][amount] || window.PAYMENT_LINKS.yookassa[amount];
             var payload = { name: name, email: email, phone: phone, amount: amount, paymentMethod: method, status: 'ожидает оплаты' };
 
             if (window.PAYMENT_API_URL) {
