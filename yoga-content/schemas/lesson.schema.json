@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Yoga Lesson",
+  "description": "Схема данных для урока йоги",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "category",
+    "level",
+    "duration",
+    "description",
+    "instructor",
+    "video_url",
+    "thumbnail_url"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9]{3}$",
+      "description": "Уникальный ID урока (001-040)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100,
+      "description": "Название урока"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "back_health",
+        "flexibility",
+        "hip_joints",
+        "meditation",
+        "relaxation"
+      ],
+      "description": "Категория урока"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3,
+      "description": "Уровень сложности: 1 - начинающий, 2 - средний, 3 - продвинутый"
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 90,
+      "description": "Длительность урока в минутах"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 500,
+      "description": "Описание урока"
+    },
+    "instructor": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100,
+      "description": "Имя инструктора"
+    },
+    "video_url": {
+      "type": "string",
+      "format": "uri-reference",
+      "description": "Путь к видео файлу"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "format": "uri-reference",
+      "description": "Путь к превью изображению"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "Теги для поиска"
+    },
+    "poses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "duration"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Название асаны"
+          },
+          "duration": {
+            "type": "integer",
+            "minimum": 10,
+            "description": "Длительность асаны в секундах"
+          },
+          "sanskrit_name": {
+            "type": "string",
+            "description": "Название на санскрите (опционально)"
+          }
+        }
+      },
+      "description": "Список асан в уроке"
+    },
+    "benefits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "Польза от практики"
+    },
+    "contraindications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Противопоказания"
+    },
+    "equipment": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Коврик для йоги",
+          "Блоки для йоги",
+          "Ремень",
+          "Болстер",
+          "Плед",
+          "Подушка",
+          "Стена",
+          "Стул",
+          "Без оборудования"
+        ]
+      },
+      "description": "Необходимое оборудование"
+    },
+    "focus_areas": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Позвоночник",
+          "Поясница",
+          "Грудной отдел",
+          "Шейный отдел",
+          "Плечи",
+          "Тазобедренные суставы",
+          "Ноги",
+          "Руки",
+          "Корпус",
+          "Всё тело"
+        ]
+      },
+      "description": "Области фокуса"
+    },
+    "intensity": {
+      "type": "string",
+      "enum": ["Низкая", "Средняя", "Высокая"],
+      "description": "Интенсивность практики"
+    },
+    "style": {
+      "type": "string",
+      "enum": [
+        "Хатха",
+        "Виньяса",
+        "Инь-йога",
+        "Восстановительная",
+        "Терапевтическая",
+        "Медитация",
+        "Пранаяма"
+      ],
+      "description": "Стиль йоги"
+    },
+    "music": {
+      "type": "boolean",
+      "description": "Наличие фоновой музыки"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["ru", "en"],
+      "default": "ru",
+      "description": "Язык инструкций"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Дата создания"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Дата последнего обновления"
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": false,
+      "description": "Доступен только по подписке Premium"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Порядковый номер в категории"
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Yoga Program",
+  "description": "Схема данных для программы йоги",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "description",
+    "duration_weeks",
+    "lessons",
+    "goal",
+    "level"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^prog_[0-9]{3}$",
+      "description": "Уникальный ID программы (prog_001, prog_002, ...)"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100,
+      "description": "Название программы"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 1000,
+      "description": "Подробное описание программы"
+    },
+    "short_description": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Краткое описание для карточки"
+    },
+    "duration_weeks": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 52,
+      "description": "Длительность программы в неделях"
+    },
+    "lessons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{3}$"
+      },
+      "minItems": 3,
+      "description": "Массив ID уроков в программе"
+    },
+    "schedule": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["day", "lesson_id"],
+        "properties": {
+          "day": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "День программы"
+          },
+          "lesson_id": {
+            "type": "string",
+            "pattern": "^[0-9]{3}$",
+            "description": "ID урока на этот день"
+          },
+          "is_rest_day": {
+            "type": "boolean",
+            "default": false,
+            "description": "День отдыха"
+          },
+          "note": {
+            "type": "string",
+            "description": "Заметка для этого дня"
+          }
+        }
+      },
+      "description": "Расписание программы по дням"
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 300,
+      "description": "Цель программы"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3,
+      "description": "Уровень сложности программы"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "format": "uri-reference",
+      "description": "Путь к изображению программы"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "back_health",
+        "flexibility",
+        "hip_joints",
+        "meditation",
+        "relaxation",
+        "mixed"
+      ],
+      "description": "Основная категория программы"
+    },
+    "benefits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Ожидаемые результаты"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Требования к участникам"
+    },
+    "frequency": {
+      "type": "string",
+      "description": "Рекомендуемая частота занятий (например, '3 раза в неделю')"
+    },
+    "total_duration_minutes": {
+      "type": "integer",
+      "description": "Общая длительность всех уроков в минутах"
+    },
+    "is_premium": {
+      "type": "boolean",
+      "default": false,
+      "description": "Доступна только по подписке Premium"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Дата создания"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Дата последнего обновления"
+    },
+    "order": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Порядок отображения"
+    }
+  }
+}

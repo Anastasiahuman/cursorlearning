@@ -1,0 +1,58 @@
+{
+  "id": "001",
+  "title": "Название урока",
+  "category": "back_health",
+  "level": 1,
+  "duration": 20,
+  "description": "Подробное описание урока, что будет происходить, на что направлена практика",
+  "instructor": "Имя Инструктора",
+  "video_url": "content/lessons/001_lesson_name/video.mp4",
+  "thumbnail_url": "content/lessons/001_lesson_name/thumbnail.jpg",
+  "tags": [
+    "спина",
+    "начинающий",
+    "утро"
+  ],
+  "poses": [
+    {
+      "name": "Поза кошки-коровы",
+      "duration": 60,
+      "sanskrit_name": "Marjaryasana-Bitilasana"
+    },
+    {
+      "name": "Поза ребенка",
+      "duration": 120,
+      "sanskrit_name": "Balasana"
+    },
+    {
+      "name": "Поза собаки мордой вниз",
+      "duration": 90,
+      "sanskrit_name": "Adho Mukha Svanasana"
+    }
+  ],
+  "benefits": [
+    "Снимает напряжение в спине",
+    "Улучшает подвижность позвоночника",
+    "Укрепляет мышцы кора"
+  ],
+  "contraindications": [
+    "Острые боли в спине",
+    "Травмы позвоночника",
+    "Беременность (3 триместр)"
+  ],
+  "equipment": [
+    "Коврик для йоги"
+  ],
+  "focus_areas": [
+    "Позвоночник",
+    "Поясница"
+  ],
+  "intensity": "Низкая",
+  "style": "Хатха",
+  "music": true,
+  "language": "ru",
+  "created_at": "2026-02-28",
+  "updated_at": "2026-02-28",
+  "is_premium": false,
+  "order": 1
+}
