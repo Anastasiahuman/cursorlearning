@@ -58,9 +58,9 @@
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
         /* FOMO TICKER BAR */
-        .fomo-bar{position:fixed;top:64px;left:0;right:0;z-index:99;background:linear-gradient(90deg,#ff5c1c,#ff7a42,#00d26a,#ff5c1c);background-size:300% 100%;animation:shimmer 4s linear infinite;padding:6px 0;overflow:hidden;border-bottom:1px solid rgba(0,0,0,.1)}
+        .fomo-bar{position:fixed;top:64px;left:0;right:0;z-index:99;background:linear-gradient(90deg,#ff5c1c,#ff7a42,#00d26a,#ff5c1c);background-size:300% 100%;animation:shimmer 4s linear infinite;padding:3px 0;overflow:hidden;border-bottom:1px solid rgba(0,0,0,.1)}
         .fomo-bar-inner{display:flex;white-space:nowrap;animation:ticker 20s linear infinite}
-        .fomo-bar span{display:inline-block;padding:0 40px;font-size:12px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px}
+        .fomo-bar span{display:inline-block;padding:0 32px;font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px}
         .fomo-bar span::before{content:'🔥 '}
 
         /* LIVE VIEWERS */
@@ -133,7 +133,7 @@
 
         /* OFFERS */
         .offers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
-        .offer-card{padding:36px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);transition:transform .35s,box-shadow .35s,border-color .35s;cursor:default}
+        .offer-card{padding:36px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);transition:transform .35s,box-shadow .35s,border-color .35s;cursor:default;scroll-margin-top:100px}
         .offer-card:hover{transform:translateY(-8px);border-color:var(--orange);box-shadow:0 20px 50px var(--glow-orange)}
         .offer-card.featured{border:1px solid rgba(255,92,28,.5);background:linear-gradient(180deg,rgba(255,92,28,.1) 0%,rgba(255,255,255,.02) 100%);position:relative;box-shadow:0 0 40px rgba(255,92,28,.12)}
         .offer-card.featured::before{content:'HIT';position:absolute;top:16px;right:16px;background:var(--gradient-orange);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:100px;letter-spacing:1px}
@@ -199,7 +199,8 @@
 
         @media(max-width:768px){
             .nav-links{display:none}
-            .fomo-bar{top:64px;font-size:11px}
+            .fomo-bar{top:64px;padding:2px 0}
+            .fomo-bar span{font-size:9px;padding:0 20px}
             .hero{padding:150px 0 70px}
             .hero h1{font-size:32px;letter-spacing:-1px}
             .hero-cta{padding:16px 36px;font-size:15px}
@@ -257,7 +258,7 @@
         <div class="hero-badge">4–5 часов практики · Без кода · Результат сразу</div>
         <h1>Часы рутины? <span class="highlight">Теперь минуты.</span></h1>
         <p class="hero-sub">Настройка Cursor с нуля, правила, инфраструктура + 5 живых кейсов: презентации, аналитика, контент, автоматизация — без кода. Подойдёт даже новичкам.</p>
-        <a href="#offers" class="hero-cta">Смотреть варианты <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1.707-9.707a1 1 0 00-1.414-1.414L7.586 9.586a1 1 0 000 1.414l2.707 2.707a1 1 0 001.414-1.414L9.414 10l2.293-2.293z" clip-rule="evenodd" transform="rotate(270 10 10)"/></svg></a>
+        <a href="#offer-first" class="hero-cta">Смотреть варианты <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1.707-9.707a1 1 0 00-1.414-1.414L7.586 9.586a1 1 0 000 1.414l2.707 2.707a1 1 0 001.414-1.414L9.414 10l2.293-2.293z" clip-rule="evenodd" transform="rotate(270 10 10)"/></svg></a>
     </div>
 </section>
 
@@ -364,7 +365,7 @@
         </div>
         <p class="spots-left fade-in">⚡ Осталось <strong id="spotsCount">7</strong> мест по текущей цене</p>
         <div class="offers-grid">
-            <div class="offer-card featured fade-in">
+            <div class="offer-card featured fade-in" id="offer-first">
                 <div class="offer-icon">▶</div>
                 <h3>Запись интенсива</h3>
                 <div class="price">9 990 ₽</div>
