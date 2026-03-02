@@ -11,6 +11,7 @@ function doPost(e) {
       var d = new Date();
       time = Utilities.formatDate(d, Session.getScriptTimeZone(), 'HH:mm:ss');
     }
+    var productType = body.productType || '';
     var row = [
       body.name || '',
       body.email || '',
@@ -18,6 +19,7 @@ function doPost(e) {
       body.amount != null ? body.amount : '',
       body.paymentMethod || '',
       body.status || '',
+      productType,
       body.date || '',
       time
     ];

@@ -4,8 +4,18 @@
  */
 
 const PAYMENT_LINKS = {
-  stripe: { 12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606', 24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603' },
-  yookassa: { 12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l', 24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l' }
+  stripe: {
+    9990: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606',
+    12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606',
+    24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603',
+    29990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603'
+  },
+  yookassa: {
+    9990: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l',
+    12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l',
+    24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l',
+    29990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l'
+  }
 };
 
 async function createYooKassaPayment(amount, returnUrl, shopId, secretKey, metadata = {}) {
@@ -63,13 +73,14 @@ export default async function handler(req, res) {
   const name = (body.name || '').trim();
   const email = (body.email || '').trim();
   const phone = (body.phone || '').trim();
-  const amount = parseInt(body.amount, 10) === 24990 ? 24990 : 12900;
+  const rawAmount = parseInt(body.amount, 10);
+  const amount = [0, 9990, 12900, 24990, 29990].includes(rawAmount) ? rawAmount : 9990;
   const paymentMethod = body.paymentMethod === 'stripe' ? 'stripe' : 'yookassa';
   const statusLabel = body.status === 'оплачено' ? 'Оплачено' : 'Не оплачено';
 
-  let redirectUrl = PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount];
+  let redirectUrl = amount > 0 ? (PAYMENT_LINKS[paymentMethod][amount] || PAYMENT_LINKS.yookassa[amount]) : null;
   let yookassaSource = 'link';
-  if (paymentMethod === 'yookassa') {
+  if (amount > 0 && paymentMethod === 'yookassa') {
     const shopId = process.env.YOOKASSA_SHOP_ID;
     const secretKey = process.env.YOOKASSA_SECRET_KEY;
     const siteUrl = (process.env.SITE_URL || '').replace(/\/$/, '');
@@ -89,12 +100,13 @@ export default async function handler(req, res) {
   const today = now.toISOString().split('T')[0];
   const time = now.toISOString().slice(11, 19);
 
-  const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, date: today, time };
-
-  // #region agent log
-  fetch('http://127.0.0.1:7243/ingest/4f9ebcc9-dd0e-4880-ae59-484401268db7', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'send-to-notion.js:leadRow', message: 'payload to Sheets', data: { leadRow, hasTime: !!leadRow.time }, timestamp: Date.now(), hypothesisId: 'time-in-payload' }) }).catch(() => {});
-  fetch('http://127.0.0.1:7243/ingest/4f9ebcc9-dd0e-4880-ae59-484401268db7', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'send-to-notion.js:yookassa', message: 'yookassa source', data: { paymentMethod, yookassaSource }, timestamp: Date.now(), hypothesisId: 'yookassa-api-vs-link' }) }).catch(() => {});
-  // #endregion
+  let productType = (body.productType || '').trim();
+  if (!productType) {
+    if (amount === 0 || body.status === 'White list') productType = 'предзапись в комьюнити';
+    else if (amount === 29990) productType = 'консультация';
+    else productType = 'запись';
+  }
+  const leadRow = { name, email, phone, amount, paymentMethod, status: statusLabel, productType, date: today, time };
 
   const sheetsUrl = process.env.GOOGLE_SHEETS_APPEND_URL;
   if (sheetsUrl) {
