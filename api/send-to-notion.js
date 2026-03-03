@@ -14,7 +14,7 @@ const PAYMENT_LINKS = {
     9990: 'https://yookassa.ru/my/i/aY41DlTAd6Eb/l',
     12900: 'https://yookassa.ru/my/i/aZ3ErOIYnE14/l',
     24990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l',
-    29990: 'https://yookassa.ru/my/i/aY41dCCrZdsy/l'
+    29990: 'https://yookassa.ru/my/i/aacA8RbQ4sHb/l'
   }
 };
 
@@ -86,7 +86,7 @@ export default async function handler(req, res) {
     const siteUrl = (process.env.SITE_URL || '').replace(/\/$/, '');
     if (shopId && secretKey && siteUrl) {
       const returnUrl = `${siteUrl}/thanks.html`;
-      const metadata = {};
+      const metadata = { source: 'cursor-intensive' };
       if (email) metadata.customer_email = email;
       if (name) metadata.customer_name = name;
       const confirmationUrl = await createYooKassaPayment(amount, returnUrl, shopId, secretKey, metadata);
