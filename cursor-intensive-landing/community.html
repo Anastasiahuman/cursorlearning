@@ -63,10 +63,6 @@
         .fomo-bar span{display:inline-block;padding:0 32px;font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px}
         .fomo-bar span::before{content:'🔥 '}
 
-        /* LIVE VIEWERS */
-        .live-viewers{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(0,210,106,.3);border-radius:100px;font-size:13px;color:var(--green);font-weight:600;margin-bottom:20px;animation:fadeDown .6s .05s ease-out both}
-        .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:livePulse 1.5s ease-in-out infinite}
-
         /* COUNTDOWN */
         .countdown{display:flex;justify-content:center;gap:12px;margin-bottom:32px}
         .countdown-item{display:flex;flex-direction:column;align-items:center;gap:4px}
@@ -204,7 +200,6 @@
             .hero{padding:150px 0 70px}
             .hero h1{font-size:32px;letter-spacing:-1px}
             .hero-cta{padding:16px 36px;font-size:15px}
-            .live-viewers{font-size:12px;padding:6px 14px}
             .countdown{gap:8px}
             .countdown-num{width:44px;height:44px;font-size:18px}
             .speakers-grid{grid-template-columns:1fr}
@@ -254,11 +249,57 @@
 <section class="hero">
     <canvas id="heroCanvas"></canvas>
     <div class="container">
-        <div class="live-viewers"><span class="live-dot"></span> <span id="viewerCount">14</span> человек смотрят прямо сейчас</div>
         <div class="hero-badge">4–5 часов практики · Без кода · Результат сразу</div>
         <h1>Часы рутины? <span class="highlight">Теперь минуты.</span></h1>
         <p class="hero-sub">Настройка Cursor с нуля, правила, инфраструктура + 5 живых кейсов: презентации, аналитика, контент, автоматизация — без кода. Подойдёт даже новичкам.</p>
         <a href="#offer-first" class="hero-cta">Смотреть варианты <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1.707-9.707a1 1 0 00-1.414-1.414L7.586 9.586a1 1 0 000 1.414l2.707 2.707a1 1 0 001.414-1.414L9.414 10l2.293-2.293z" clip-rule="evenodd" transform="rotate(270 10 10)"/></svg></a>
+    </div>
+</section>
+
+<section id="offers">
+    <div class="container">
+        <p class="section-label fade-in">Варианты</p>
+        <h2 class="section-title fade-in">Выбери свой формат</h2>
+        <div class="countdown fade-in" id="offerCountdown">
+            <div class="countdown-item"><div class="countdown-num" id="cdDays">00</div><div class="countdown-label">дней</div></div>
+            <div class="countdown-item"><div class="countdown-num" id="cdHours">00</div><div class="countdown-label">часов</div></div>
+            <div class="countdown-item"><div class="countdown-num" id="cdMins">00</div><div class="countdown-label">минут</div></div>
+            <div class="countdown-item"><div class="countdown-num" id="cdSecs">00</div><div class="countdown-label">секунд</div></div>
+        </div>
+        <p class="spots-left fade-in">⚡ Осталось <strong id="spotsCount">7</strong> мест по текущей цене</p>
+        <div class="offers-grid">
+            <div class="offer-card featured fade-in" id="offer-first">
+                <div class="offer-icon">▶</div>
+                <h3>Запись интенсива</h3>
+                <div class="price">9 990 ₽</div>
+                <p>4–5 часов практики: настройка Cursor с нуля, правила, инфраструктура, 5 живых кейсов и рабочее пространство. Доступ в закрытый чат единомышленников — обмениваемся опытом и помогаем с настройкой. Подойдёт даже если никогда не открывали Cursor.</p>
+                <button type="button" class="offer-btn primary js-open-payment" data-amount="9990">Купить запись</button>
+            </div>
+            <div class="offer-card fade-in">
+                <div class="offer-icon">⚡</div>
+                <h3>Запись + консультация</h3>
+                <div class="price">29 990 ₽</div>
+                <p>Запись интенсива + 1 час с Василисой и Анастасией: разберём ваши задачи, настроим Cursor под проект.</p>
+                <button type="button" class="offer-btn secondary js-open-payment" data-amount="29990">Запись + консультация</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="community">
+    <div class="container" style="text-align:center">
+        <p class="section-label fade-in">Комьюнити</p>
+        <h2 class="section-title fade-in">Cursor-комьюнити для менеджеров</h2>
+        <p class="section-sub fade-in" style="margin-left:auto;margin-right:auto">Закрытое сообщество для тех, кто хочет выжимать максимум из Cursor. Бесплатный white list — первыми узнаете о запуске.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;text-align:left;margin-bottom:40px">
+            <div class="outcome-card fade-in" style="border-left-color:var(--green)">🆕 Все новинки Cursor и Claude — разбираем первыми</div>
+            <div class="outcome-card fade-in" style="border-left-color:var(--green)">💡 Реальные кейсы участников: что автоматизировали и как</div>
+            <div class="outcome-card fade-in" style="border-left-color:var(--green)">⚡ Лайфхаки и настройки, которые кратно ускоряют работу</div>
+            <div class="outcome-card fade-in" style="border-left-color:var(--green)">🤝 Нетворкинг: продакты, маркетологи, HR, CEO — единомышленники</div>
+            <div class="outcome-card fade-in" style="border-left-color:var(--green)">📦 Готовые промпты, шаблоны и воркспейсы от спикеров</div>
+            <div class="outcome-card fade-in" style="border-left-color:var(--green)">🎯 Регулярные разборы: как решать ваши задачи через Cursor</div>
+        </div>
+        <button type="button" class="hero-cta js-open-waitlist" style="animation:none">Вступить в white list — бесплатно</button>
     </div>
 </section>
 
@@ -350,53 +391,6 @@
             <div class="testimonial-card fade-in"><p>Сама собираю и анализирую данные через Cursor. Не жду аналитиков.</p><div class="testimonial-author">Участница интенсива</div></div>
             <div class="testimonial-card fade-in"><p>Ноды не настраиваю — это делает Cursor. Говоришь что нужно и готово.</p><div class="testimonial-author">Участница интенсива</div></div>
         </div>
-    </div>
-</section>
-
-<section id="offers">
-    <div class="container">
-        <p class="section-label fade-in">Варианты</p>
-        <h2 class="section-title fade-in">Выбери свой формат</h2>
-        <div class="countdown fade-in" id="offerCountdown">
-            <div class="countdown-item"><div class="countdown-num" id="cdDays">00</div><div class="countdown-label">дней</div></div>
-            <div class="countdown-item"><div class="countdown-num" id="cdHours">00</div><div class="countdown-label">часов</div></div>
-            <div class="countdown-item"><div class="countdown-num" id="cdMins">00</div><div class="countdown-label">минут</div></div>
-            <div class="countdown-item"><div class="countdown-num" id="cdSecs">00</div><div class="countdown-label">секунд</div></div>
-        </div>
-        <p class="spots-left fade-in">⚡ Осталось <strong id="spotsCount">7</strong> мест по текущей цене</p>
-        <div class="offers-grid">
-            <div class="offer-card featured fade-in" id="offer-first">
-                <div class="offer-icon">▶</div>
-                <h3>Запись интенсива</h3>
-                <div class="price">9 990 ₽</div>
-                <p>4–5 часов практики: настройка Cursor с нуля, правила, инфраструктура, 5 живых кейсов и рабочее пространство. Подойдёт даже если никогда не открывали Cursor.</p>
-                <button type="button" class="offer-btn primary js-open-payment" data-amount="9990">Купить запись</button>
-            </div>
-            <div class="offer-card fade-in">
-                <div class="offer-icon">⚡</div>
-                <h3>Запись + консультация</h3>
-                <div class="price">29 990 ₽</div>
-                <p>Запись интенсива + 1 час с Василисой и Анастасией: разберём ваши задачи, настроим Cursor под проект.</p>
-                <button type="button" class="offer-btn secondary js-open-payment" data-amount="29990">Запись + консультация</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="community">
-    <div class="container" style="text-align:center">
-        <p class="section-label fade-in">Комьюнити</p>
-        <h2 class="section-title fade-in">Cursor-комьюнити для менеджеров</h2>
-        <p class="section-sub fade-in" style="margin-left:auto;margin-right:auto">Закрытое сообщество для тех, кто хочет выжимать максимум из Cursor. Бесплатный white list — первыми узнаете о запуске.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;text-align:left;margin-bottom:40px">
-            <div class="outcome-card fade-in" style="border-left-color:var(--green)">🆕 Все новинки Cursor и Claude — разбираем первыми</div>
-            <div class="outcome-card fade-in" style="border-left-color:var(--green)">💡 Реальные кейсы участников: что автоматизировали и как</div>
-            <div class="outcome-card fade-in" style="border-left-color:var(--green)">⚡ Лайфхаки и настройки, которые кратно ускоряют работу</div>
-            <div class="outcome-card fade-in" style="border-left-color:var(--green)">🤝 Нетворкинг: продакты, маркетологи, HR, CEO — единомышленники</div>
-            <div class="outcome-card fade-in" style="border-left-color:var(--green)">📦 Готовые промпты, шаблоны и воркспейсы от спикеров</div>
-            <div class="outcome-card fade-in" style="border-left-color:var(--green)">🎯 Регулярные разборы: как решать ваши задачи через Cursor</div>
-        </div>
-        <button type="button" class="hero-cta js-open-waitlist" style="animation:none">Вступить в white list — бесплатно</button>
     </div>
 </section>
 
@@ -666,16 +660,6 @@ window.WAITLIST_API_URL='/api/send-to-notion';
             if(!was)item.classList.add('active');
         });
     });
-
-    /* ---- Live viewer count (simulated) ---- */
-    var viewerEl=document.getElementById('viewerCount');
-    var baseViewers=Math.floor(Math.random()*8)+12;
-    viewerEl.textContent=baseViewers;
-    setInterval(function(){
-        baseViewers+=Math.floor(Math.random()*3)-1;
-        if(baseViewers<8)baseViewers=8;if(baseViewers>28)baseViewers=28;
-        viewerEl.textContent=baseViewers;
-    },60000);
 
     /* ---- Countdown timer (3 days from now, resets) ---- */
     var cdEnd=new Date();cdEnd.setDate(cdEnd.getDate()+3);cdEnd.setHours(23,59,59,0);
