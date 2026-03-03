@@ -8,7 +8,7 @@ const PAYMENT_LINKS = {
     9990: 'https://buy.stripe.com/8x25kD8TY8hN4Vi27E3F604',
     12900: 'https://buy.stripe.com/dRm28r0nsfKfafC8w23F606',
     24990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603',
-    29990: 'https://buy.stripe.com/6oU8wP1rwbtZfzW8w23F603'
+    29990: 'https://buy.stripe.com/9B6fZh3zEapV3ReeUq3F607'
   },
   yookassa: {
     9990: 'https://yookassa.ru/my/i/aY41DlTAd6Eb/l',
